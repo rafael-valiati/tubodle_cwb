@@ -485,6 +485,15 @@ function mostrarFimDeJogo(venceu) {
 // INICIALIZAÇÃO DO JOGO
 // =======================================================
 
-// Garante que o código só é executado após o DOM e todas as dependências (Leaflet) serem carregadas.
-document.addEventListener('DOMContentLoaded', carregarDados);
+function inicializarAposCarregamento() {
+    // Adiciona um atraso de 100ms para garantir que bibliotecas externas (Leaflet)
+    // tenham tido tempo de definir suas variáveis globais (L).
+    setTimeout(() => {
+        carregarDados();
+    }, 500); 
+}
+
+// Garante que o código só é executado após o DOM e todas as dependências (Leaflet)
+// estarem carregadas.
+document.addEventListener('DOMContentLoaded', inicializarAposCarregamento);
 
