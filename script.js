@@ -17,12 +17,16 @@ const MAX_TENTATIVAS = 6;   // Define o limite de palpites (padrão Wordle/Metro
 async function carregarDados() {
     try {
         const response = await fetch('EstTubo_Curitiba_limpo.json'); 
+        
         if (!response.ok) {
-            throw new Error(`Erro ao carregar o JSON: ${response.statusText}`);
+            // Se o status HTTP não for 200, ele vai falhar aqui
+            console.error(`Erro ao carregar o JSON (HTTP Status ${response.status}). Verifique o caminho/nome do arquivo: EstTubo_Curitiba_limpo.json`);
+            throw new Error(`Arquivo JSON não encontrado ou erro de status. Status: ${response.status}`);
         }
+        
         TODAS_ESTACOES = await response.json();
         
-        // Assegura que os dados de Lat/Lon são números
+        // Assegura que os dados de Lat/Lon são números (MANTENHA ISSO!)
         TODAS_ESTACOES = TODAS_ESTACOES.map(estacao => ({
             ...estacao,
             Latitude: parseFloat(estacao.Latitude),
@@ -30,12 +34,16 @@ async function carregarDados() {
         }));
 
         selecionarEstacaoSecreta();
-        inicializarMapaPrevia(); // Próximo passo importante: configurar o mapa
-        // Aqui também deve ser adicionada a lógica de Autocomplete do INPUT
+        inicializarMapaPrevia(); 
+        configurarInput();
         
+        // Remove a mensagem de erro se o carregamento foi bem-sucedido
+        document.getElementById('game-status').innerText = "Que estação-tubo de Curitiba é essa?";
+
     } catch (error) {
         console.error("Falha fatal ao inicializar o jogo:", error);
-        document.getElementById('game-status').innerText = "Erro ao carregar dados. Tente novamente mais tarde.";
+        // Exibe a mensagem de erro na tela
+        document.getElementById('game-status').innerText = "Erro ao carregar dados. Verifique o nome do arquivo EstTubo_Curitiba_limpo.json no console.";
     }
 }
 
