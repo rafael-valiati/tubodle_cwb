@@ -384,6 +384,16 @@ function configurarInput() {
     const dataList = document.getElementById('estacoes-lista');
     const input = document.getElementById('palpite-input');
     const chutarBtn = document.getElementById('chutar-btn');
+
+    // ===============================================
+    // VERIFICAÇÃO CRÍTICA DE REFERÊNCIA
+    // ===============================================
+    if (!chutarBtn) {
+        // Se esta mensagem aparecer, o ID 'chutar-btn' está errado no index.html
+        console.error("ERRO GRAVE: Botão 'chutar-btn' não encontrado.");
+        return; 
+    }
+    // ===============================================
     
     // 1. Popula o Autocomplete
     // USAMOS UM SET PARA GARANTIR NOMES ÚNICOS
@@ -403,9 +413,25 @@ function configurarInput() {
         dataList.appendChild(option);
     });
     
-    // 3. Permite chutar com a tecla ENTER
+    // 3. Configura o botão "Chutar"
+    chutarBtn.addEventListener('click', () => {
+        const nomePalpite = input.value.trim(); // Limpa espaços no clique
+        
+        // LOG DE VERIFICAÇÃO: Se esta mensagem aparecer, o evento funcionou.
+        console.log("-> Evento 'Chutar' DISPARADO. Palpite:", nomePalpite); 
+        
+        if (nomePalpite) {
+            processarPalpite(nomePalpite);
+            input.value = ''; // Limpa o input
+        } else {
+            alert("Por favor, digite o nome de uma estação.");
+        }
+    });
+    
+    // 4. Permite chutar com a tecla ENTER
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
+            // Se o botão for clicado, ele dispara o evento de cima.
             chutarBtn.click();
         }
     });
