@@ -1,9 +1,7 @@
-<style>
 /* -------------------------------------- */
 /* 1. RESET BÁSICO E CONFIGURAÇÃO GERAL */
 /* -------------------------------------- */
 body {
-    /* CORREÇÃO CRÍTICA: Aplica a fonte principal */
     font-family: 'Roboto', sans-serif !important; 
     margin: 0;
     padding: 0;
@@ -15,7 +13,6 @@ body {
     font-size: 17px; 
 }
 
-/* NOVO: Garante que todos os elementos herdem a fonte Roboto */
 * {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -27,7 +24,6 @@ body {
     background-color: #121212; /* Fundo escuro */
 }
 
-/* Garante que TODO o texto no body seja CLARO */
 .dark-mode body,
 .dark-mode h1,
 .dark-mode #game-status {
@@ -50,7 +46,6 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* CORREÇÃO: Define explicitamente a fonte para o título (h1) */
 header h1 {
     font-family: 'Roboto', sans-serif !important; 
     font-size: 2.5em; /* Aumenta um pouco o título */
@@ -69,28 +64,67 @@ main {
 
 #game-status {
     color: #e0e0e0; 
-    
-    /* AUMENTADO: de 28px para 32px */
     font-size: 32px; 
     font-weight: bold;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0 10px 0; /* Diminui a margem inferior para a barra de progresso */
     padding: 10px;
 }
 
-/* Aumenta ainda mais em telas grandes */
 @media (min-width: 600px) {
     #game-status {
-        font-size: 40px; /* Aumenta para telas de desktop/tablet */
+        font-size: 40px;
     }
 }
+
+/* NOVO: Estilos para a Barra de Progresso */
+#progresso-container {
+    width: 95%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaço entre o texto e a barra */
+    margin-bottom: 20px;
+}
+
+#progresso-texto {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+#progresso-palpites {
+    width: 100%;
+    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden; /* Garante que o preenchimento fique dentro das bordas arredondadas */
+}
+
+/* Cor de fundo da barra (Chrome/Safari) */
+#progresso-palpites::-webkit-progress-bar {
+    background-color: #2c2c2c;
+}
+
+/* Cor do preenchimento da barra (Chrome/Safari) */
+#progresso-palpites::-webkit-progress-value {
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+/* Cor do preenchimento da barra (Firefox) */
+#progresso-palpites::-moz-progress-bar {
+    background-color: #4CAF50;
+}
+
 
 /* MAPA */
 #mapa-previa {
     width: 95%; 
     height: 50vh; 
     max-width: 800px;
-    /* MANTIDO: BORDER RADIUS */
     border-radius: 12px;
     overflow: hidden; 
     margin-bottom: 20px;
@@ -103,7 +137,6 @@ main {
     max-width: 800px;
     background-color: #1f1f1f;
     padding: 20px;
-    /* MANTIDO: BORDER RADIUS */
     border-radius: 12px;
 }
 
@@ -122,7 +155,6 @@ main {
     max-width: 70%; 
     padding: 14px;
     border: 2px solid #333;
-    /* MUDANÇA: Aumentado de 8px para 10px */
     border-radius: 10px; 
     background-color: #2c2c2c;
     color: #e0e0e0;
@@ -138,7 +170,6 @@ main {
 #chutar-btn {
     padding: 14px 22px; 
     border: none;
-    /* MUDANÇA: Aumentado de 8px para 10px */
     border-radius: 10px; 
     background-color: #4CAF50;
     color: white;
@@ -158,24 +189,20 @@ main {
 /* -------------------------------------- */
 #tentativas {
     width: 100%;
-    /* NOVO: Cantos arredondados na tabela inteira, mas o overflow:hidden na interface-jogo 
-       ajudará a controlar isso */
-    /* border-radius: 8px; /* Adicionado, mas pode ser escondido pelo container */
-    overflow: hidden; /* Garante que os cantos arredondados da tabela apareçam, se necessário */
-    
+    overflow: hidden;
     border-collapse: collapse;
     margin-top: 15px;
     font-size: 20px;
     text-align: center; 
 }
 
-/* Centraliza o texto nas colunas (especialmente útil para Direção) */
 #tentativas th, 
 #tentativas td {
     padding: 14px 8px; 
     text-align: center; 
     border-bottom: 1px solid #333; 
     color: #e0e0e0; 
+    vertical-align: middle; /* Alinha o conteúdo verticalmente */
 }
 
 /* Cabeçalho */
@@ -185,8 +212,6 @@ main {
     color: #4CAF50; 
     border-bottom: 3px solid #4CAF50; 
     border-top: 1px solid #333;
-    /* Cantos arredondados APENAS no topo do cabeçalho */
-    /* São as extremidades esquerda e direita do cabeçalho */
     border-top-left-radius: 8px; 
     border-top-right-radius: 8px;
 }
@@ -201,61 +226,80 @@ main {
     background-color: #4CAF50 !important; 
     color: #121212 !important; 
     font-weight: bold;
-    /* Cantos arredondados APENAS na base, já que é a última linha */
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
 
 /* -------------------------------------- */
-/* 6. CORES E ÍCONES DE FEEDBACK (Wordle Style) */
+/* 6. CORES E ÍCONES DE FEEDBACK (NOVOS!) */
 /* -------------------------------------- */
 
 /* --- CORES DE DISTÂNCIA (Distância) --- */
-
-#tentativas td.acerto-quase-la {
-    background-color: #66BB6A !important;
+#tentativas td.distancia-azul {
+    background-color: #2196F3 !important; /* AZUL para acerto exato */
     color: #121212 !important;
 }
-
-#tentativas td.acerto-amarelo {
-    background-color: #FFB300 !important;
+#tentativas td.distancia-verde {
+    background-color: #66BB6A !important; /* VERDE para < 0.5 km */
     color: #121212 !important;
 }
-
-#tentativas td.acerto-laranja {
-    background-color: #FB8C00 !important;
+#tentativas td.distancia-amarelo {
+    background-color: #FFB300 !important; /* AMARELO para 0.5-2 km */
     color: #121212 !important;
 }
-
-#tentativas td.acerto-cinza {
-    background-color: #757575 !important;
+#tentativas td.distancia-laranja {
+    background-color: #FB8C00 !important; /* LARANJA para 2-5 km */
+    color: #121212 !important;
+}
+#tentativas td.distancia-cinza {
+    background-color: #757575 !important; /* CINZA para > 5 km */
     color: #e0e0e0 !important;
 }
 
 
-/* --- FEEDBACK DE LINHA (Linhas) --- */
-
-#tentativas td.acerto-linha {
-    background-color: #FDD835 !important;
+/* --- FEEDBACK DE LINHA (Linhas em comum) --- */
+#tentativas td.linha-total {
+    background-color: #4CAF50 !important; /* VERDE para todas as linhas em comum */
     color: #121212 !important;
     font-weight: bold;
 }
-
-#tentativas td.erro-linha {
-    background-color: #424242 !important;
+#tentativas td.linha-parcial {
+    background-color: #FDD835 !important; /* AMARELO para alguma linha em comum */
+    color: #121212 !important;
+}
+#tentativas td.linha-nenhuma {
+    background-color: #424242 !important; /* CINZA para nenhuma linha em comum */
     color: #e0e0e0 !important;
 }
 
 
 /* --- FEEDBACK DE DIREÇÃO (Direção) --- */
-
-#tentativas td.acerto-direcao {
-    color: #4CAF50 !important;
+#tentativas td.feedback-direcao {
     font-weight: bold;
-    font-size: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    font-size: 1.2em; /* Tamanho base */
+    line-height: 1.1; /* Melhora o alinhamento vertical */
 }
-</style>
+/* Estilo para o contêiner de ícone e texto */
+.direcao-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px; /* Espaço entre o ícone e o texto */
+}
+/* Estilo específico para o ícone de seta */
+.direcao-icone {
+    font-size: 1.5em; /* Deixa o ícone maior que o texto */
+    color: #e0e0e0;
+}
+/* Estilo para o texto da direção (Norte, Sul...) */
+.direcao-texto {
+    font-size: 0.7em; /* Texto menor */
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #bdbdbd;
+}
+/* Célula de direção na linha de vitória */
+#tentativas td.feedback-vitoria {
+    font-size: 2.5em; /* Emoji de fogos de artifício bem grande */
+}
