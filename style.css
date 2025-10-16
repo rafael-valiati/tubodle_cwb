@@ -1,139 +1,145 @@
-/* =======================================================
-// ESTILOS GERAIS
-// ======================================================= */
-
+<style>
+/* -------------------------------------- */
+/* 1. RESET BÁSICO E CONFIGURAÇÃO GERAL */
+/* -------------------------------------- */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    color: #e0e0e0; /* Cor do texto no modo escuro */
+    transition: background-color 0.3s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------------------------- */
+/* 2. MODO ESCURO (TEMA) */
+/* -------------------------------------- */
+.dark-mode {
+    background-color: #121212; /* Fundo escuro */
+}
+
+.dark-mode header,
+.dark-mode #interface-jogo {
+    background-color: #1f1f1f; /* Elementos mais claros que o fundo */
+    border-color: #333;
+}
+
+/* -------------------------------------- */
+/* 3. ESTRUTURA E RESPONSIVIDADE */
+/* -------------------------------------- */
+header {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #1f1f1f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-}
-
-header {
-    background-color: #2c3e50; /* Cor escura do Expresso */
-    color: white;
     width: 100%;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.container {
-    width: 90%;
-    max-width: 600px;
-    margin-top: 20px;
     padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-/* =======================================================
-// ESTILOS DO MAPA E INPUT
-// ======================================================= */
-
+/* MAPA */
 #mapa-previa {
-    height: 300px; /* CRUCIAL: O Leaflet precisa de uma altura definida */
-    width: 100%;
-    border-radius: 4px;
+    /* Define o mapa para ocupar uma parte significativa da tela */
+    width: 95%; /* 95% da largura da tela */
+    height: 50vh; /* 50% da altura da tela (ajusta-se automaticamente) */
+    max-width: 800px; /* Limite em telas grandes */
+    border-radius: 12px;
+    overflow: hidden; /* Garante que o Leaflet não vaze */
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-.input-area {
+/* INTERFACE GERAL (tabela + input) */
+#interface-jogo {
+    width: 95%;
+    max-width: 800px;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* -------------------------------------- */
+/* 4. INPUT E BOTÃO */
+/* -------------------------------------- */
+#input-area {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 #palpite-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    flex-grow: 1; /* Ocupa o máximo de espaço possível */
+    padding: 12px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+    color: #e0e0e0;
     font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#palpite-input:focus {
+    border-color: #4CAF50; /* Cor de foco verde/destaque */
 }
 
 #chutar-btn {
-    padding: 10px 15px;
-    background-color: #e67e22; /* Cor do tubo/ônibus */
-    color: white;
+    padding: 12px 20px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 8px;
+    background-color: #4CAF50; /* Verde de destaque */
+    color: white;
     font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
     transition: background-color 0.2s;
 }
 
 #chutar-btn:hover {
-    background-color: #d35400;
+    background-color: #45a049; /* Verde mais escuro no hover */
 }
 
-/* =======================================================
-// ESTILOS DA GRADE DE PALPITES (FEEDBACK)
-// ======================================================= */
 
-#grade-palpites {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+/* -------------------------------------- */
+/* 5. TABELA DE TENTATIVAS (MODO ESCURO) */
+/* -------------------------------------- */
+#tentativas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 15px;
 }
 
-/* Estilo do cabeçalho da grade */
-.header-linha, .palpite-linha {
-    display: grid;
-    grid-template-columns: 2fr 1.5fr 1fr 1.5fr; /* 4 Colunas */
-    gap: 5px;
+#tentativas th, 
+#tentativas td {
     padding: 10px;
-    border-radius: 4px;
+    text-align: left;
+    border-bottom: 1px solid #333; /* Linhas de grade mais suaves */
+}
+
+#tentativas thead th {
+    background-color: #2c2c2c; /* Cabeçalho ligeiramente mais escuro */
     font-weight: bold;
-    text-align: center;
+    color: #4CAF50; /* Cor de destaque no cabeçalho */
+    border-top: 1px solid #333;
 }
 
-.header-linha {
-    background-color: #ccc;
-    border-bottom: 2px solid #333;
+#tentativas tbody tr:nth-child(even) {
+    background-color: #242424; /* Zebra/listra para melhor leitura */
 }
 
-.palpite-linha {
-    background-color: #ecf0f1;
-    font-weight: normal;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.palpite-linha span {
-    padding: 5px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Estilos das Pistas de Distância (Cores de Fundo) */
-.acerto-verde { background-color: #2ecc71; color: white; } /* Acerto / 0km */
-.acerto-quase-la { background-color: #27ae60; color: white; } /* Menos de 500m */
-.acerto-amarelo { background-color: #f1c40f; color: #333; } /* 500m a 2km */
-.acerto-laranja { background-color: #e67e22; color: white; } /* 2km a 5km */
-.acerto-cinza { background-color: #95a5a6; color: white; } /* Mais de 5km */
-
-/* Estilo da Pista de Linha (Compartilha Linha) */
-.acerto-linha { 
-    background-color: #f39c12; /* Dourado/Laranja da Urbs */
-    color: white; 
-} 
-
-.erro-linha {
-    background-color: #bdc3c7; /* Cinza claro para 'Nenhuma Linha' */
-    color: #333;
-}
-
-/* Estilo da Pista de Direção (Seta) */
-.acerto-direcao {
-    font-size: 1.5em; /* Torna a seta maior e visível */
+/* Estilo para a Linha de Palpite Correto */
+.palpite-correto {
+    background-color: #4CAF50 !important; /* Fundo verde */
+    color: #121212; /* Texto escuro */
     font-weight: bold;
 }
+</style>
