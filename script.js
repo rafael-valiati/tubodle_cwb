@@ -348,33 +348,34 @@ function inicializarMapaPrevia() {
     const lat = ESTACAO_SECRETA.Latitude;
     const lon = ESTACAO_SECRETA.Longitude;
     
-    // Centraliza o mapa em um ponto próximo (simulando um zoom nos arredores)
-    // Exemplo: 0.005 graus de offset = ~500 metros
-    const latCentral = lat + (Math.random() - 0.5) * 0.008; 
-    const lonCentral = lon + (Math.random() - 0.5) * 0.008;
+    // CORREÇÃO (Opcional): Usaremos o offset constante para um preview fixo
+    // E a coordenada central é onde o ponto fixo aparecerá
+    const latCentral = lat + 0.001; 
+    const lonCentral = lon + 0.001; 
 
     // Configuração do mapa Leaflet
-    mapa = L.map('mapa-previa').setView([latCentral, lonCentral], 16); // Nível de zoom 16 é bom para rua
+    // Vamos centralizar no ponto exato para que o ponto cinza fique na borda
+    mapa = L.map('mapa-previa').setView([lat, lon], 16); 
 
-    // Adiciona o tile layer (Camada de Mapa) do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
+    // SUBSTITUIR O TILE LAYER (OpenStreetMap Padrão) POR UM NO-LABELS
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB',
         maxZoom: 19
     }).addTo(mapa);
     
-    // Adiciona um ponto CÍNZA (como o Metrodle) no centro da TELA, não na coordenada,
-    // para simular a localização aproximada.
-    L.circleMarker([latCentral, lonCentral], { 
-        radius: 8, 
-        color: '#555', 
-        fillColor: '#555', 
-        fillOpacity: 1 
+    // AGORA, ADICIONE O PONTO DA ESTAÇÃO SECRETA
+    // O ponto CÍNZA não precisa mais do offset, ele vai direto para a coordenada.
+    // Lembre-se: Este ponto cinza é a PISTA. Ele marca a localização exata no mapa.
+    L.circleMarker([lat, lon], { 
+        radius: 8, 
+        color: '#555',  // Cor cinza
+        fillColor: '#555', 
+        fillOpacity: 1 
     }).addTo(mapa);
 
-    // Adiciona o autocomplete e eventos após o mapa
+    // Adiciona o autocomplete e eventos (que você já corrigiu)
     configurarInput();
 }
-
 
 /**
  * Popula a lista de sugestões de Autocomplete e configura o evento "Chutar".
