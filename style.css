@@ -150,6 +150,7 @@ main {
     padding: 12px; /* AUMENTADO: de 10px para 12px */
     text-align: left;
     border-bottom: 1px solid #333; 
+    color: #e0e0e0; /* Garante texto claro em todas as células */
 }
 
 #tentativas thead th {
@@ -161,14 +162,73 @@ main {
     border-top: 1px solid #333;
 }
 
-/* (O restante da tabela, como o estilo zebra, permanece o mesmo) */
+/* Estilo Zebra para linhas pares */
 #tentativas tbody tr:nth-child(even) {
     background-color: #242424;
 }
 
+/* Linha Vencedora (Palpite Correto) */
 .palpite-correto {
-    background-color: #4CAF50 !important; 
-    color: #121212; 
+    background-color: #4CAF50 !important; /* Fundo verde FORÇADO */
+    color: #121212 !important; /* Texto preto para alto contraste */
     font-weight: bold;
+}
+
+/* -------------------------------------- */
+/* 6. CORES E ÍCONES DE FEEDBACK (Wordle Style) - NOVO BLOCO */
+/* -------------------------------------- */
+
+/* --- CORES DE DISTÂNCIA (Distância) --- */
+
+/* Muito Quente (até 500m) - Verde Claro */
+#tentativas td.acerto-quase-la {
+    background-color: #66BB6A !important;
+    color: #121212 !important; /* Texto escuro */
+}
+
+/* Quente (até 2 km) - Amarelo */
+#tentativas td.acerto-amarelo {
+    background-color: #FFB300 !important;
+    color: #121212 !important; /* Texto escuro */
+}
+
+/* Morno (até 5 km) - Laranja */
+#tentativas td.acerto-laranja {
+    background-color: #FB8C00 !important;
+    color: #121212 !important; /* Texto escuro */
+}
+
+/* Frio (mais de 5 km) - Cinza */
+#tentativas td.acerto-cinza {
+    background-color: #757575 !important;
+    color: #e0e0e0 !important; /* Texto claro */
+}
+
+
+/* --- FEEDBACK DE LINHA (Linhas) --- */
+
+/* Linha em Comum - Amarelo/Dourado */
+#tentativas td.acerto-linha {
+    background-color: #FDD835 !important;
+    color: #121212 !important;
+    font-weight: bold;
+}
+
+/* Linha Incomum - Cinza Escuro */
+#tentativas td.erro-linha {
+    background-color: #424242 !important;
+    color: #e0e0e0 !important;
+}
+
+
+/* --- FEEDBACK DE DIREÇÃO (Direção) --- */
+
+/* Direção (Setas) - Apenas cor do texto e ícone */
+/* Como a direção NUNCA é um acerto perfeito, usamos uma cor de destaque neutra */
+#tentativas td.acerto-direcao {
+    color: #4CAF50 !important; /* Verde de destaque para a seta */
+    font-weight: bold;
+    font-size: 1.2em;
+    /* Não definimos background-color aqui, pois a seta fica sobre a cor da distância */
 }
 </style>
