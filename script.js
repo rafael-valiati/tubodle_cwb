@@ -5,7 +5,7 @@
 let TODAS_ESTACOES = [];    // Armazena todos os dados do JSON.
 let ESTACAO_SECRETA = null; // Armazena a estação que o jogador deve adivinhar.
 let JOGADAS_FEITAS = [];    // Armazena o histórico de palpites do jogador.
-const MAX_TENTATIVAS = 6;   // Define o limite de palpites (padrão Wordle/Metrodle).
+const MAX_TENTATIVAS = 6;   // Define o limite de palpites.
 
 // =======================================================
 // FUNÇÕES DE INICIALIZAÇÃO
@@ -16,7 +16,6 @@ const MAX_TENTATIVAS = 6;   // Define o limite de palpites (padrão Wordle/Metro
  */
 async function carregarDados() {
     try {
-        // ATENÇÃO: Verifique a capitalização exata do nome do arquivo no seu repositório
         const response = await fetch('EstTubo_Curitiba_limpo.json'); 
         
         if (!response.ok) {
@@ -28,29 +27,20 @@ async function carregarDados() {
         
         // --- PROCESSAMENTO E NORMALIZAÇÃO DOS DADOS ---
         TODAS_ESTACOES = dadosRaw.map(estacao => {
-            
-            // 1. Corrige Latitude e Longitude (Troca vírgula por ponto e converte para número)
-            const latString = estacao.Latitude.replace(',', '.');
-            const lonString = estacao.Longitude.replace(',', '.');
+            const latString = String(estacao.Latitude).replace(',', '.');
+            const lonString = String(estacao.Longitude).replace(',', '.');
             const lat = parseFloat(latString);
             const lon = parseFloat(lonString);
             
-            // 2. Corrige o campo "Linha" (Splita a string e limpa espaços)
-            const linhasString = estacao.Linha || ''; // Garante que é uma string vazia se for null/undefined
-            // Transforma "303, 304" em ["303", "304"]
+            const linhasString = estacao.Linha || '';
             const linhasArray = linhasString.split(',').map(l => l.trim()).filter(l => l !== '');
             
-            // 3. Cria o campo NomesLinhas para exibição (usando o mapa de tradução)
-            const nomesLinhas = linhasArray.map(cod => MAPA_LINHAS[cod] || 'Ligeirinho');
-
-            // Retorna o objeto padronizado
             return {
                 ...estacao,
-                Nome: estacao['Estação '].trim(), // Padroniza o nome (e remove espaços extras)
+                Nome: estacao['Estação '].trim(),
                 Latitude: lat,
                 Longitude: lon,
-                Linhas: linhasArray,     // Novo campo padronizado (Array de códigos)
-                NomesLinhas: nomesLinhas // Novo campo para feedback visual
+                Linhas: linhasArray,
             };
         });
 
@@ -58,12 +48,12 @@ async function carregarDados() {
         selecionarEstacaoSecreta(); 
         inicializarMapaPrevia(); 
         
-        // Se deu certo, remove a mensagem de erro
         document.getElementById('game-status').innerText = "Que estação-tubo de Curitiba é essa?";
+        atualizarBarraProgresso(); // NOVO: Inicia a barra de progresso em 0
 
     } catch (error) {
         console.error("Falha fatal ao inicializar o jogo:", error);
-        document.getElementById('game-status').innerText = "Erro ao carregar dados. Verifique o console do navegador.";
+        document.getElementById('game-status').innerText = "Erro ao carregar dados. Verifique o console.";
     }
 }
 
@@ -79,7 +69,7 @@ const MAPA_LINHAS = {
     '503': 'Expresso Boqueirão',
     '350': 'Expresso Atuba / Pinheirinho',
     '502/602': 'Expresso Circular Sul',
-    'C01': 'Expresso Pinhais / Rui Barbosa', // Simplificado
+    'C01': 'Expresso Pinhais / Rui Barbosa',
 
     // Ligeirão
     '250': 'Ligeirão Norte / Sul',
@@ -88,100 +78,57 @@ const MAPA_LINHAS = {
 
     // Inter 2
     '022/023': 'Inter 2'
-    // Outros são considerados 'Ligeirinhos' (pode ser o valor padrão se a chave não existir)
 };
 
 /**
- * Seleciona a estação secreta do dia usando a data como semente
- * para garantir que seja a mesma para todos no mesmo dia.
+ * Seleciona a estação secreta do dia usando a data como semente.
  */
 function selecionarEstacaoSecreta() {
     let poolDeSelecao = [];
-
-    // 1. Cria a pool de seleção com peso (5 - Prioridade)
     TODAS_ESTACOES.forEach(estacao => {
-        // Prioridade 1 (máxima) -> Peso 4
         const peso = 5 - estacao.Prioridade;
-        
         for (let i = 0; i < peso; i++) {
             poolDeSelecao.push(estacao);
         }
     });
 
-    // 2. Lógica para criar uma "semente" baseada na data (DDMMAA)
     const hoje = new Date();
-    // Usa uma fórmula simples para criar um número fixo por dia
     const semente = hoje.getFullYear() * 10000 + (hoje.getMonth() + 1) * 100 + hoje.getDate();
-    
-    // 3. Usa a semente para calcular um índice fixo na pool "pesada"
     const indiceFixo = semente % poolDeSelecao.length;
     ESTACAO_SECRETA = poolDeSelecao[indiceFixo];
 
-    // Adiciona uma propriedade com os nomes das linhas para facilitar o feedback
-    ESTACAO_SECRETA.NomesLinhas = ESTACAO_SECRETA.Linhas.map(cod => MAPA_LINHAS[cod] || 'Ligeirinho');
-
-    console.log(`Estação Secreta de Hoje: ${ESTACAO_SECRETA.Nome} (Prioridade: ${ESTACAO_SECRETA.Prioridade})`);
-    console.log(`Linhas Secretas:`, ESTACAO_SECRETA.NomesLinhas);
+    console.log(`Estação Secreta de Hoje: ${ESTACAO_SECRETA.Nome}`);
 }
 
 // =======================================================
 // FUNÇÕES DE CÁLCULO GEOGRÁFICO
 // =======================================================
 
-/**
- * Calcula a distância em quilômetros entre duas coordenadas
- * usando a Fórmula de Haversine.
- */
 function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Raio da Terra em km
+    const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
               Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
               Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distância em km
+    return R * c;
 }
 
-/**
- * Calcula a direção cardeal (azimute) do ponto 1 para o ponto 2.
- */
 function calcularDirecao(lat1, lon1, lat2, lon2) {
-    // Converte de graus para radianos
     const lat1Rad = lat1 * (Math.PI / 180);
     const lon1Rad = lon1 * (Math.PI / 180);
     const lat2Rad = lat2 * (Math.PI / 180);
     const lon2Rad = lon2 * (Math.PI / 180);
-
     const dLon = lon2Rad - lon1Rad;
-
     const y = Math.sin(dLon) * Math.cos(lat2Rad);
     const x = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
               Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(dLon);
-    
-    let angulo = Math.atan2(y, x);
-    angulo = angulo * (180 / Math.PI); // Converte para graus (0 a 360)
-    if (angulo < 0) {
-        angulo += 360;
-    }
-
-    // Traduz o ângulo para uma direção cardeal (N, NE, L, SE, S, SO, O, NO)
+    let angulo = Math.atan2(y, x) * (180 / Math.PI);
+    if (angulo < 0) angulo += 360;
     const direcoes = ['N', 'NE', 'L', 'SE', 'S', 'SO', 'O', 'NO'];
-    // Índice de setor (45 graus por setor)
     const indice = Math.floor((angulo + 22.5) / 45) % 8; 
-
     return direcoes[indice]; 
-}
-
-/**
- * Verifica se o palpite e a estação secreta compartilham alguma linha.
- */
-function compararLinhas(linhasPalpite, linhasSecreta) {
-    // linhasPalpite e linhasSecreta são arrays de códigos (ex: ['303', 'C01'])
-    const secretaSet = new Set(linhasSecreta);
-
-    // Itera sobre as linhas do palpite para ver se alguma está na secreta
-    return linhasPalpite.some(linha => secretaSet.has(linha));
 }
 
 // =======================================================
@@ -192,374 +139,283 @@ function compararLinhas(linhasPalpite, linhasSecreta) {
  * Processa o palpite do jogador, calcula as pistas e atualiza a interface.
  */
 function processarPalpite(nomePalpite) {
-    // 1. Validar e Encontrar o Palpite
-    const palpite = TODAS_ESTACOES.find(est => est.Nome.toUpperCase() === nomePalpite.toUpperCase());
-
     // Verifica se o jogo já terminou
-    if (JOGADAS_FEITAS.length >= MAX_TENTATIVAS || ESTACAO_SECRETA.Acertou) {
-        alert("O jogo acabou. Recarregue a página para jogar amanhã.");
+    if (JOGADAS_FEITAS.length >= MAX_TENTATIVAS || (JOGADAS_FEITAS.length > 0 && JOGADAS_FEITAS[JOGADAS_FEITAS.length - 1].Acertou)) {
         return;
     }
 
+    const palpite = TODAS_ESTACOES.find(est => est.Nome.toUpperCase() === nomePalpite.toUpperCase());
     if (!palpite) {
         alert("Estação não encontrada. Por favor, verifique a grafia exata.");
         return;
     }
-    
-    // Evita palpites repetidos (boa prática)
     if (JOGADAS_FEITAS.some(j => j.Nome === palpite.Nome)) {
-         alert("Você já chutou esta estação.");
-         return;
+        alert("Você já chutou esta estação.");
+        return;
     }
 
     // 2. Calcular Pistas
-    const distancia = calcularDistanciaKm(palpite.Latitude, palpite.Longitude, 
-                                          ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude);
+    const distancia = calcularDistanciaKm(palpite.Latitude, palpite.Longitude, ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude);
+    const acertou = distancia < 0.1; // Limite de 100m para considerar acerto
 
-    const direcao = calcularDirecao(palpite.Latitude, palpite.Longitude, 
-                                    ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude);
-
-    const linhasEmComum = compararLinhas(palpite.Linhas, ESTACAO_SECRETA.Linhas);
-    
-    // 3. Gerar Feedback Visual (Classe e Ícone)
-    
-    // Pista de Distância (Cor de Proximidade)
+    // 3. Gerar Feedback Visual
     const feedbackDistancia = gerarFeedbackDistancia(distancia);
+    const feedbackDirecao = gerarFeedbackDirecao(palpite, ESTACAO_SECRETA, acertou);
+    const feedbackLinha = gerarFeedbackLinha(palpite, ESTACAO_SECRETA);
 
-    // Pista de Direção (Seta)
-    const feedbackDirecao = gerarFeedbackDirecao(direcao);
-
-    // Pista de Linha (Cor ou Nome)
-    const feedbackLinha = gerarFeedbackLinha(linhasEmComum, palpite);
-
-    // 4. Registrar Jogada e Atualizar a Interface
+    // 4. Registrar Jogada
     const jogada = {
         Nome: palpite.Nome,
-        Distancia: distancia,
-        Direcao: direcao,
-        LinhasComum: linhasEmComum,
+        Acertou: acertou,
         FeedbackDistancia: feedbackDistancia,
         FeedbackDirecao: feedbackDirecao,
         FeedbackLinha: feedbackLinha
     };
     JOGADAS_FEITAS.push(jogada);
 
-    // Esta função precisará ser implementada na integração com HTML
-    adicionarLinhaNaGrade(jogada); 
-    
-    // 5. Verificar Vitória e Fim de Jogo
-    if (distancia < 0.1) { // Acerto (menos de 100m)
-        alert(`Parabéns! Você acertou a estação: ${ESTACAO_SECRETA.Nome}!`);
-        ESTACAO_SECRETA.Acertou = true;
+    adicionarLinhaNaGrade(jogada);
+    atualizarBarraProgresso();
+
+    // 5. Verificar Fim de Jogo
+    if (acertou) {
         mostrarFimDeJogo(true);
     } else if (JOGADAS_FEITAS.length >= MAX_TENTATIVAS) {
-        alert(`Fim de Jogo! A estação secreta era: ${ESTACAO_SECRETA.Nome}.`);
         mostrarFimDeJogo(false);
     }
 }
 
-
 // =======================================================
-// FUNÇÕES AUXILIARES DE FEEDBACK
+// FUNÇÕES AUXILIARES DE FEEDBACK (ATUALIZADAS!)
 // =======================================================
 
 /**
- * Mapeia a distância calculada para uma classe CSS e um valor de exibição.
+ * MUDANÇA 1: Novas cores de distância.
+ * Mapeia a distância para uma classe CSS e um valor de exibição.
  */
 function gerarFeedbackDistancia(distancia) {
     let classe;
-    let valorExibido;
-
-    if (distancia < 0.1) { // 100 metros: Vitória/Acerto
-        classe = 'acerto-verde';
-        valorExibido = '0 km';
-    } else if (distancia <= 0.5) { // menos de 500m: VERDE-CLARO (Muito Quente)
-        classe = 'acerto-quase-la';
-    } else if (distancia <= 2.0) { // menos de 2 km: AMARELO (Quente)
-        classe = 'acerto-amarelo';
-    } else if (distancia <= 5.0) { // menos de 5 km: LARANJA (Morno)
-        classe = 'acerto-laranja';
-    } else { // mais de 5 km: CINZA (Frio)
-        classe = 'acerto-cinza';
+    if (distancia < 0.1) {
+        classe = 'distancia-azul'; // Acerto exato
+    } else if (distancia <= 0.5) {
+        classe = 'distancia-verde'; // < 0.5 km
+    } else if (distancia <= 2.0) {
+        classe = 'distancia-amarelo'; // 0.5 a 2 km
+    } else if (distancia <= 5.0) {
+        classe = 'distancia-laranja'; // 2 a 5 km
+    } else {
+        classe = 'distancia-cinza'; // > 5 km
     }
-
-    // Formata a distância para exibição (se não for acerto)
-    if (distancia >= 0.1) {
-        valorExibido = distancia.toFixed(2) + ' km';
-    }
-    
+    const valorExibido = distancia < 0.1 ? '0 km' : `${distancia.toFixed(2)} km`;
     return { classe, valorExibido };
 }
 
 /**
- * Traduz a direção cardeal (N, NE, etc.) para um ícone de seta.
+ * MUDANÇA 2: Ícones e nomes de direção.
+ * MUDANÇA 7: Emoji de vitória.
+ * Gera o feedback de direção.
  */
-function gerarFeedbackDirecao(direcao) {
-    // Use ícones unicode de seta ou classes CSS para setas estilizadas.
-    // Exemplo com Unicode:
-    const iconesSeta = {
-        'N': '↑', 'NE': '↗', 'L': '→', 'SE': '↘',
-        'S': '↓', 'SO': '↙', 'O': '←', 'NO': '↖'
-    };
-    // A classe pode ser usada para estilizar a cor do ícone
+function gerarFeedbackDirecao(palpite, secreta, acertou) {
+    if (acertou) {
+        return { icone: '🎉', texto: 'ACERTOU!', classe: 'feedback-vitoria' };
+    }
+
+    const direcao = calcularDirecao(palpite.Latitude, palpite.Longitude, secreta.Latitude, secreta.Longitude);
+    
+    const icones = { 'N': '⬆️', 'NE': '↗️', 'L': '➡️', 'SE': '↘️', 'S': '⬇️', 'SO': '↙️', 'O': '⬅️', 'NO': '↖️' };
+    const nomes = { 'N': 'Norte', 'NE': 'Nordeste', 'L': 'Leste', 'SE': 'Sudeste', 'S': 'Sul', 'SO': 'Sudoeste', 'O': 'Oeste', 'NO': 'Noroeste' };
+
     return { 
-        icone: iconesSeta[direcao], 
-        classe: 'acerto-direcao' 
+        icone: icones[direcao],
+        texto: nomes[direcao],
+        classe: 'feedback-direcao' 
     };
 }
 
 /**
- * Gera o feedback de linhas, que pode ser o nome da linha ou uma cor.
+ * MUDANÇAS 4, 5, 6: Lógica de cores e texto para linhas.
+ * Gera o feedback de linhas (Nenhuma, Parcial, Total).
  */
-function gerarFeedbackLinha(linhasEmComum, palpite) {
+function gerarFeedbackLinha(palpite, secreta) {
+    const palpiteLinhas = new Set(palpite.Linhas);
+    const secretaLinhas = new Set(secreta.Linhas);
+    const linhasEmComum = [...palpiteLinhas].filter(linha => secretaLinhas.has(linha));
+
     let classe;
     let valorExibido;
-    
-    if (linhasEmComum) {
-        classe = 'acerto-linha'; // Amarelo/Dourado para linha em comum
-        
-        // Exibe o nome da linha de maior prioridade em comum, ou apenas 'Sim'
-        // Simplificação: apenas mostra as linhas do palpite
-        valorExibido = 'Linha Comum!'; 
-        
-        // Se você quiser mostrar o nome:
-        const linhasDoPalpite = palpite.Linhas.map(cod => MAPA_LINHAS[cod] || 'Ligeirinho');
-        valorExibido = linhasDoPalpite.join(', '); // Mostra as linhas que passam ali
-        
+
+    if (linhasEmComum.length === 0) {
+        classe = 'linha-nenhuma';
+        valorExibido = 'Nenhuma';
     } else {
-        classe = 'erro-linha'; // Cinza
-        valorExibido = 'Nenhuma Linha';
+        const temLigeirinhoComum = linhasEmComum.some(cod => !MAPA_LINHAS.hasOwnProperty(cod));
+        
+        if (temLigeirinhoComum) {
+            valorExibido = 'Algum Ligeirinho';
+        } else {
+            valorExibido = linhasEmComum.map(cod => MAPA_LINHAS[cod]).join(', ');
+        }
+        
+        // Verifica se é acerto total ou parcial
+        if (palpiteLinhas.size === secretaLinhas.size && linhasEmComum.length === secretaLinhas.size) {
+            classe = 'linha-total'; // Todas as linhas batem
+        } else {
+            classe = 'linha-parcial'; // Apenas algumas linhas batem
+        }
     }
     
     return { classe, valorExibido };
 }
 
-// ... (Seu código existente: Variáveis Globais, carregarDados, selecionarEstacaoSecreta, etc.) ...
+// =======================================================
+// FUNÇÕES DE INTERFACE E MAPA (ATUALIZADAS!)
+// =======================================================
 
-// Variável para a instância do mapa Leaflet
 let mapa = null;
-let marcadorSecreto = null; // Para mostrar a estação no fim do jogo
+let marcadorSecreto = null;
 
-/**
- * Inicializa o mapa, centralizando em um ponto aleatório próximo à estação secreta
- * e esconde a localização exata, como uma prévia.
- */
 function inicializarMapaPrevia() {
     const lat = ESTACAO_SECRETA.Latitude;
     const lon = ESTACAO_SECRETA.Longitude;
     
-    // Configuração do mapa Leaflet
     mapa = L.map('mapa-previa', {
-        // =============================================
-        // NOVO: BLOQUEAR ZOOM E INTERAÇÕES
-        // =============================================
-        zoomControl: false, // Remove o botão de zoom +/-
-        dragging: false,    // Impede que o usuário arraste o mapa
-        minZoom: 16,        // Define o zoom mínimo para 16
-        maxZoom: 16,        // Define o zoom máximo para 16 (bloqueia o zoom)
-        scrollWheelZoom: false, // Desabilita zoom com a roda do mouse
-        doubleClickZoom: false, // Desabilita zoom com clique duplo
-        boxZoom: false,     // Desabilita zoom com arrasto de caixa
-        keyboard: false,    // Desabilita zoom com teclas + / -
-        touchZoom: false,   // Desabilita zoom por toque em dispositivos móveis
-        // =============================================
-    }).setView([lat, lon], 16); // O 16 aqui é o zoom inicial
+        zoomControl: false, dragging: false, minZoom: 16, maxZoom: 16,
+        scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+        keyboard: false, touchZoom: false
+    }).setView([lat, lon], 16);
 
-    // SUBSTITUIR O TILE LAYER (OpenStreetMap Padrão) POR UM NO-LABELS
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
         attribution: '©OpenStreetMap, ©CartoDB',
         maxZoom: 19
     }).addTo(mapa);
     
-    // ... (o restante do código do marcador cinza permanece o mesmo) ...
-    L.circleMarker([lat, lon], { 
-        radius: 8, 
-        color: '#555', 
-        fillColor: '#555', 
-        fillOpacity: 1 
-    }).addTo(mapa);
-
-    // =============================================
-    // NOVO: TRATAMENTO DE REDIMENSIONAMENTO DE TELA
-    // =============================================
-    // Garante que o Leaflet recalcule o centro e os tiles após o CSS 
-    // ter mudado o tamanho do container (Útil após redimensionamento da janela)
+    L.circleMarker([lat, lon], { radius: 8, color: '#555', fillColor: '#555', fillOpacity: 1 }).addTo(mapa);
     mapa.invalidateSize(); 
-
-    // Adiciona o autocomplete e eventos (que você já corrigiu)
     configurarInput();
 }
 
-/**
- * Popula a lista de sugestões de Autocomplete e configura o evento "Chutar".
- */
 function configurarInput() {
     const dataList = document.getElementById('estacoes-lista');
     const input = document.getElementById('palpite-input');
     const chutarBtn = document.getElementById('chutar-btn');
 
-    // ===============================================
-    // VERIFICAÇÃO CRÍTICA DE REFERÊNCIA
-    // ===============================================
     if (!chutarBtn) {
-        // Se esta mensagem aparecer, o ID 'chutar-btn' está errado no index.html
         console.error("ERRO GRAVE: Botão 'chutar-btn' não encontrado.");
         return; 
     }
-    // ===============================================
     
-    // 1. Popula o Autocomplete
-    // USAMOS UM SET PARA GARANTIR NOMES ÚNICOS
-    const nomesUnicos = new Set();
-    TODAS_ESTACOES.forEach(estacao => {
-        // Adiciona apenas o campo 'Nome' (que é o limpo e padronizado)
-        nomesUnicos.add(estacao.Nome); 
-    });
-    
-    // Remove quaisquer opções antigas no datalist (boa prática)
+    const nomesUnicos = new Set(TODAS_ESTACOES.map(est => est.Nome));
     dataList.innerHTML = ''; 
-    
-    // 2. Adiciona APENAS a lista de nomes únicos ao datalist
     nomesUnicos.forEach(nome => {
         const option = document.createElement('option');
         option.value = nome;
         dataList.appendChild(option);
     });
     
-    // 3. Configura o botão "Chutar" (Clique do Mouse)
-chutarBtn.addEventListener('click', (event) => {
-    // PREVINE o comportamento padrão (submissão de formulário)
-    event.preventDefault(); 
-    
-    // FORÇA a interrupção de qualquer outro evento de clique subsequente
-    // Isso deve matar o duplo disparo que está lendo o valor vazio.
-    event.stopPropagation(); 
+    const submeterPalpite = () => {
+        const nomePalpite = input.value.trim(); 
+        if (nomePalpite) {
+            processarPalpite(nomePalpite);
+            input.value = ''; 
+        } else {
+            alert("Por favor, digite o nome de uma estação.");
+        }
+    };
 
-    const nomePalpite = input.value.trim(); 
-    
-    // Logs de verificação:
-    console.log("CLIQUE: Palpite lido:", nomePalpite);
-    
-    if (nomePalpite) {
-        console.log("CLIQUE: Chamando processarPalpite com:", nomePalpite);
-        processarPalpite(nomePalpite);
-        input.value = ''; 
-    } else {
-        console.warn("CLIQUE: Input vazio. Disparando Alerta.");
-        alert("Por favor, digite o nome de uma estação.");
-    }
-});
-        
-    // 4. Permite chutar com a tecla ENTER (Evento Keypress)
+    chutarBtn.addEventListener('click', submeterPalpite);
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            // CORREÇÃO: Usamos preventDefault E chamamos a lógica diretamente
             e.preventDefault(); 
-    
-            const nomePalpite = input.value.trim(); 
-            
-            // Logs de verificação:
-            console.log("ENTER: Palpite lido:", nomePalpite); 
-    
-            if (nomePalpite) {
-                console.log("ENTER: Chamando processarPalpite com:", nomePalpite);
-                processarPalpite(nomePalpite);
-                input.value = '';
-            } else {
-                console.warn("ENTER: Input vazio. Disparando Alerta.");
-                alert("Por favor, digite o nome de uma estação.");
-            }
+            submeterPalpite();
         }
     });
 }
 
 /**
- * Adiciona uma nova linha de palpite na grade do jogo, usando a estrutura de TABELA (<tr> e <td>).
- * @param {object} jogada - Objeto contendo os dados da jogada (Nome, FeedbackDistancia, etc.).
+ * ATUALIZADO: Renderiza a célula de direção com ícone e texto.
+ * Adiciona uma nova linha de palpite na grade do jogo.
  */
 function adicionarLinhaNaGrade(jogada) {
     const grade = document.getElementById('grade-palpites');
-
-    // 1. CRIA A LINHA DA TABELA (<tr>)
     const novaLinha = document.createElement('tr');
     
-    // Opcional: Adiciona a classe de feedback de acerto, se houver
     if (jogada.Acertou) { 
         novaLinha.classList.add('palpite-correto');
     }
 
-    // Função auxiliar para criar uma célula (<td>)
-    const criarCelula = (conteudo, classe = null) => {
-        const celula = document.createElement('td');
-        celula.innerText = conteudo;
-        if (classe) {
-            celula.classList.add(classe);
-        }
-        return celula;
-    };
-
-    // 2. CRIA E ANEXA AS CÉLULAS (<td>) NA ORDEM CORRETA
-
-    // Célula 1: Palpite (Nome da Estação Chutada)
-    novaLinha.appendChild(criarCelula(jogada.Nome));
+    // Célula 1: Palpite
+    const celulaPalpite = document.createElement('td');
+    celulaPalpite.innerText = jogada.Nome;
+    novaLinha.appendChild(celulaPalpite);
 
     // Célula 2: Distância
-    novaLinha.appendChild(criarCelula(
-        jogada.FeedbackDistancia.valorExibido, 
-        jogada.FeedbackDistancia.classe
-    ));
+    const celulaDistancia = document.createElement('td');
+    celulaDistancia.innerText = jogada.FeedbackDistancia.valorExibido;
+    celulaDistancia.className = jogada.FeedbackDistancia.classe;
+    novaLinha.appendChild(celulaDistancia);
 
-    // Célula 3: Direção
-    novaLinha.appendChild(criarCelula(
-        jogada.FeedbackDirecao.icone, 
-        jogada.FeedbackDirecao.classe
-    ));
+    // Célula 3: Direção (Lógica nova)
+    const celulaDirecao = document.createElement('td');
+    celulaDirecao.className = jogada.FeedbackDirecao.classe;
+    if (jogada.Acertou) {
+        celulaDirecao.innerText = jogada.FeedbackDirecao.icone; // Apenas o emoji
+    } else {
+        celulaDirecao.innerHTML = `
+            <div class="direcao-container">
+                <span class="direcao-icone">${jogada.FeedbackDirecao.icone}</span>
+                <span class="direcao-texto">${jogada.FeedbackDirecao.texto}</span>
+            </div>
+        `;
+    }
+    novaLinha.appendChild(celulaDirecao);
 
-    // Célula 4: Linha Comum
-    novaLinha.appendChild(criarCelula(
-        jogada.FeedbackLinha.valorExibido,
-        jogada.FeedbackLinha.classe
-    ));
+    // Célula 4: Linhas
+    const celulaLinha = document.createElement('td');
+    celulaLinha.innerText = jogada.FeedbackLinha.valorExibido;
+    celulaLinha.className = jogada.FeedbackLinha.classe;
+    novaLinha.appendChild(celulaLinha);
 
-    // 3. Insere a nova linha no topo da tabela (prepend é o padrão do Wordle/Metrodle)
     grade.prepend(novaLinha);
 }
 
 /**
- * Lógica para mostrar o resultado final do jogo (Vitória ou Derrota).
+ * MUDANÇA 8: Nova função para a barra de progresso.
+ */
+function atualizarBarraProgresso() {
+    const palpitesFeitos = JOGADAS_FEITAS.length;
+    const textoProgresso = document.getElementById('progresso-texto');
+    const barraProgresso = document.getElementById('progresso-palpites');
+    
+    if (textoProgresso && barraProgresso) {
+        textoProgresso.innerText = `${palpitesFeitos} / ${MAX_TENTATIVAS}`;
+        barraProgresso.value = palpitesFeitos;
+    }
+}
+
+/**
+ * ATUALIZADO: Mostra o resultado final sem usar `alert`.
  */
 function mostrarFimDeJogo(venceu) {
-    // Bloqueia a entrada de novos palpites
     document.getElementById('palpite-input').disabled = true;
     document.getElementById('chutar-btn').disabled = true;
 
-    // Remove o ponto falso do centro
     mapa.eachLayer(layer => {
-        if (layer instanceof L.CircleMarker) {
-            mapa.removeLayer(layer);
-        }
+        if (layer instanceof L.CircleMarker) mapa.removeLayer(layer);
     });
 
-    // Revela a localização exata da estação secreta no mapa
     marcadorSecreto = L.circleMarker([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], {
         radius: 10,
-        color: venceu ? '#2ecc71' : '#e74c3c', // Verde se venceu, Vermelho se perdeu
-        fillColor: venceu ? '#2ecc71' : '#e74c3c',
+        color: venceu ? '#4CAF50' : '#e74c3c',
+        fillColor: venceu ? '#4CAF50' : '#e74c3c',
         fillOpacity: 1
     }).addTo(mapa);
     
-    marcadorSecreto.bindPopup(`Estação Secreta: <b>${ESTACAO_SECRETA.Nome}</b>`).openPopup();
+    marcadorSecreto.bindPopup(`<b>${ESTACAO_SECRETA.Nome}</b>`).openPopup();
     
-    // Ajusta o mapa para mostrar a localização real, se for o caso
-    if (!venceu) {
-        mapa.setView([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], 16);
-    }
+    mapa.setView([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], 16);
     
     document.getElementById('game-status').innerText = venceu 
         ? `🎉 Acertou em ${JOGADAS_FEITAS.length} jogadas! A estação era ${ESTACAO_SECRETA.Nome}.`
-        : `😔 Você perdeu! A estação era ${ESTACAO_SECRETA.Nome}.`;
-
-    // Implemente aqui a lógica para mostrar estatísticas/compartilhar
+        : `😔 Fim de jogo! A estação era ${ESTACAO_SECRETA.Nome}.`;
 }
 
 // =======================================================
@@ -567,4 +423,3 @@ function mostrarFimDeJogo(venceu) {
 // =======================================================
 
 document.addEventListener('DOMContentLoaded', carregarDados);
-
