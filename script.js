@@ -68,9 +68,6 @@ async function carregarDados() {
     }
 }
 
-// Inicia o carregamento quando o script é executado
-carregarDados();
-
 // =======================================================
 // MAPA DE LINHAS PARA TRADUÇÃO VISUAL
 // =======================================================
@@ -483,3 +480,11 @@ function mostrarFimDeJogo(venceu) {
 
     // Implemente aqui a lógica para mostrar estatísticas/compartilhar
 }
+
+// =======================================================
+// INICIALIZAÇÃO DO JOGO
+// =======================================================
+
+// Garante que o código só é executado após o DOM e todas as dependências (Leaflet) serem carregadas.
+document.addEventListener('DOMContentLoaded', carregarDados);
+
