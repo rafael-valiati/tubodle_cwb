@@ -380,3 +380,77 @@ function configurarInput() {
         }
     });
 }
+
+/**
+ * Adiciona uma nova linha de palpite na grade do jogo.
+ */
+function adicionarLinhaNaGrade(jogada) {
+    const grade = document.getElementById('grade-palpites');
+
+    const linhaDiv = document.createElement('div');
+    linhaDiv.classList.add('palpite-linha');
+
+    // 1. Estação Chutada
+    const nomeSpan = document.createElement('span');
+    nomeSpan.innerText = jogada.Nome;
+    linhaDiv.appendChild(nomeSpan);
+
+    // 2. Distância
+    const distanciaSpan = document.createElement('span');
+    distanciaSpan.innerText = jogada.FeedbackDistancia.valorExibido;
+    distanciaSpan.classList.add(jogada.FeedbackDistancia.classe);
+    linhaDiv.appendChild(distanciaSpan);
+
+    // 3. Direção
+    const direcaoSpan = document.createElement('span');
+    direcaoSpan.innerText = jogada.FeedbackDirecao.icone;
+    direcaoSpan.classList.add(jogada.FeedbackDirecao.classe);
+    linhaDiv.appendChild(direcaoSpan);
+
+    // 4. Linha Comum
+    const linhaSpan = document.createElement('span');
+    linhaSpan.innerText = jogada.FeedbackLinha.valorExibido;
+    linhaSpan.classList.add(jogada.FeedbackLinha.classe);
+    linhaDiv.appendChild(linhaSpan);
+
+    // Insere a nova linha no topo da grade (opcional: ou no final)
+    // Vamos inserir no final da grade, após o cabeçalho.
+    grade.appendChild(linhaDiv);
+}
+
+/**
+ * Lógica para mostrar o resultado final do jogo (Vitória ou Derrota).
+ */
+function mostrarFimDeJogo(venceu) {
+    // Bloqueia a entrada de novos palpites
+    document.getElementById('palpite-input').disabled = true;
+    document.getElementById('chutar-btn').disabled = true;
+
+    // Remove o ponto falso do centro
+    mapa.eachLayer(layer => {
+        if (layer instanceof L.CircleMarker) {
+            mapa.removeLayer(layer);
+        }
+    });
+
+    // Revela a localização exata da estação secreta no mapa
+    marcadorSecreto = L.circleMarker([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], {
+        radius: 10,
+        color: venceu ? '#2ecc71' : '#e74c3c', // Verde se venceu, Vermelho se perdeu
+        fillColor: venceu ? '#2ecc71' : '#e74c3c',
+        fillOpacity: 1
+    }).addTo(mapa);
+    
+    marcadorSecreto.bindPopup(`Estação Secreta: <b>${ESTACAO_SECRETA.Nome}</b>`).openPopup();
+    
+    // Ajusta o mapa para mostrar a localização real, se for o caso
+    if (!venceu) {
+        mapa.setView([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], 16);
+    }
+    
+    document.getElementById('game-status').innerText = venceu 
+        ? `🎉 Acertou em ${JOGADAS_FEITAS.length} jogadas! A estação era ${ESTACAO_SECRETA.Nome}.`
+        : `😔 Você perdeu! A estação era ${ESTACAO_SECRETA.Nome}.`;
+
+    // Implemente aqui a lógica para mostrar estatísticas/compartilhar
+}
