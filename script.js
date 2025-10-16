@@ -348,14 +348,22 @@ function inicializarMapaPrevia() {
     const lat = ESTACAO_SECRETA.Latitude;
     const lon = ESTACAO_SECRETA.Longitude;
     
-    // CORREÇÃO (Opcional): Usaremos o offset constante para um preview fixo
-    // E a coordenada central é onde o ponto fixo aparecerá
-    const latCentral = lat + 0.001; 
-    const lonCentral = lon + 0.001; 
-
     // Configuração do mapa Leaflet
-    // Vamos centralizar no ponto exato para que o ponto cinza fique na borda
-    mapa = L.map('mapa-previa').setView([lat, lon], 16); 
+    mapa = L.map('mapa-previa', {
+        // =============================================
+        // NOVO: BLOQUEAR ZOOM E INTERAÇÕES
+        // =============================================
+        zoomControl: false, // Remove o botão de zoom +/-
+        dragging: false,    // Impede que o usuário arraste o mapa
+        minZoom: 16,        // Define o zoom mínimo para 16
+        maxZoom: 16,        // Define o zoom máximo para 16 (bloqueia o zoom)
+        scrollWheelZoom: false, // Desabilita zoom com a roda do mouse
+        doubleClickZoom: false, // Desabilita zoom com clique duplo
+        boxZoom: false,     // Desabilita zoom com arrasto de caixa
+        keyboard: false,    // Desabilita zoom com teclas + / -
+        touchZoom: false,   // Desabilita zoom por toque em dispositivos móveis
+        // =============================================
+    }).setView([lat, lon], 16); // O 16 aqui é o zoom inicial
 
     // SUBSTITUIR O TILE LAYER (OpenStreetMap Padrão) POR UM NO-LABELS
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
@@ -363,15 +371,20 @@ function inicializarMapaPrevia() {
         maxZoom: 19
     }).addTo(mapa);
     
-    // AGORA, ADICIONE O PONTO DA ESTAÇÃO SECRETA
-    // O ponto CÍNZA não precisa mais do offset, ele vai direto para a coordenada.
-    // Lembre-se: Este ponto cinza é a PISTA. Ele marca a localização exata no mapa.
-    L.circleMarker([lat, lon], { 
-        radius: 8, 
-        color: '#555',  // Cor cinza
-        fillColor: '#555', 
-        fillOpacity: 1 
+    // ... (o restante do código do marcador cinza permanece o mesmo) ...
+    L.circleMarker([lat, lon], { 
+        radius: 8, 
+        color: '#555', 
+        fillColor: '#555', 
+        fillOpacity: 1 
     }).addTo(mapa);
+
+    // =============================================
+    // NOVO: TRATAMENTO DE REDIMENSIONAMENTO DE TELA
+    // =============================================
+    // Garante que o Leaflet recalcule o centro e os tiles após o CSS 
+    // ter mudado o tamanho do container (Útil após redimensionamento da janela)
+    mapa.invalidateSize(); 
 
     // Adiciona o autocomplete e eventos (que você já corrigiu)
     configurarInput();
