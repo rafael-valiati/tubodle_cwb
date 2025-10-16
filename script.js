@@ -12,38 +12,59 @@ const MAX_TENTATIVAS = 6;   // Define o limite de palpites (padrão Wordle/Metro
 // =======================================================
 
 /**
- * Carrega os dados do arquivo JSON e inicia o jogo.
+ * Carrega o arquivo JSON, processa os dados e inicializa o jogo.
  */
 async function carregarDados() {
     try {
+        // ATENÇÃO: Verifique a capitalização exata do nome do arquivo no seu repositório
         const response = await fetch('EstTubo_Curitiba_limpo.json'); 
         
         if (!response.ok) {
-            // Se o status HTTP não for 200, ele vai falhar aqui
-            console.error(`Erro ao carregar o JSON (HTTP Status ${response.status}). Verifique o caminho/nome do arquivo: EstTubo_Curitiba_limpo.json`);
+            console.error(`Erro ao carregar o JSON (HTTP Status ${response.status}).`);
             throw new Error(`Arquivo JSON não encontrado ou erro de status. Status: ${response.status}`);
         }
         
-        TODAS_ESTACOES = await response.json();
+        let dadosRaw = await response.json();
         
-        // Assegura que os dados de Lat/Lon são números (MANTENHA ISSO!)
-        TODAS_ESTACOES = TODAS_ESTACOES.map(estacao => ({
-            ...estacao,
-            Latitude: parseFloat(estacao.Latitude),
-            Longitude: parseFloat(estacao.Longitude)
-        }));
+        // --- PROCESSAMENTO E NORMALIZAÇÃO DOS DADOS ---
+        TODAS_ESTACOES = dadosRaw.map(estacao => {
+            
+            // 1. Corrige Latitude e Longitude (Troca vírgula por ponto e converte para número)
+            const latString = estacao.Latitude.replace(',', '.');
+            const lonString = estacao.Longitude.replace(',', '.');
+            const lat = parseFloat(latString);
+            const lon = parseFloat(lonString);
+            
+            // 2. Corrige o campo "Linha" (Splita a string e limpa espaços)
+            const linhasString = estacao.Linha || ''; // Garante que é uma string vazia se for null/undefined
+            // Transforma "303, 304" em ["303", "304"]
+            const linhasArray = linhasString.split(',').map(l => l.trim()).filter(l => l !== '');
+            
+            // 3. Cria o campo NomesLinhas para exibição (usando o mapa de tradução)
+            const nomesLinhas = linhasArray.map(cod => MAPA_LINHAS[cod] || 'Ligeirinho');
 
-        selecionarEstacaoSecreta();
+            // Retorna o objeto padronizado
+            return {
+                ...estacao,
+                Nome: estacao['Estação '].trim(), // Padroniza o nome (e remove espaços extras)
+                Latitude: lat,
+                Longitude: lon,
+                Linhas: linhasArray,     // Novo campo padronizado (Array de códigos)
+                NomesLinhas: nomesLinhas // Novo campo para feedback visual
+            };
+        });
+
+        // 4. Inicializa o Jogo
+        selecionarEstacaoSecreta(); 
         inicializarMapaPrevia(); 
         configurarInput();
         
-        // Remove a mensagem de erro se o carregamento foi bem-sucedido
+        // Se deu certo, remove a mensagem de erro
         document.getElementById('game-status').innerText = "Que estação-tubo de Curitiba é essa?";
 
     } catch (error) {
         console.error("Falha fatal ao inicializar o jogo:", error);
-        // Exibe a mensagem de erro na tela
-        document.getElementById('game-status').innerText = "Erro ao carregar dados. Verifique o nome do arquivo EstTubo_Curitiba_limpo.json no console.";
+        document.getElementById('game-status').innerText = "Erro ao carregar dados. Verifique o console do navegador.";
     }
 }
 
