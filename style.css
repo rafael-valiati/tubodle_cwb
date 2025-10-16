@@ -1,0 +1,139 @@
+/* =======================================================
+// ESTILOS GERAIS
+// ======================================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #2c3e50; /* Cor escura do Expresso */
+    color: white;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* =======================================================
+// ESTILOS DO MAPA E INPUT
+// ======================================================= */
+
+#mapa-previa {
+    height: 300px; /* CRUCIAL: O Leaflet precisa de uma altura definida */
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#palpite-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#chutar-btn {
+    padding: 10px 15px;
+    background-color: #e67e22; /* Cor do tubo/ônibus */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+#chutar-btn:hover {
+    background-color: #d35400;
+}
+
+/* =======================================================
+// ESTILOS DA GRADE DE PALPITES (FEEDBACK)
+// ======================================================= */
+
+#grade-palpites {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Estilo do cabeçalho da grade */
+.header-linha, .palpite-linha {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1.5fr; /* 4 Colunas */
+    gap: 5px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.header-linha {
+    background-color: #ccc;
+    border-bottom: 2px solid #333;
+}
+
+.palpite-linha {
+    background-color: #ecf0f1;
+    font-weight: normal;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.palpite-linha span {
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos das Pistas de Distância (Cores de Fundo) */
+.acerto-verde { background-color: #2ecc71; color: white; } /* Acerto / 0km */
+.acerto-quase-la { background-color: #27ae60; color: white; } /* Menos de 500m */
+.acerto-amarelo { background-color: #f1c40f; color: #333; } /* 500m a 2km */
+.acerto-laranja { background-color: #e67e22; color: white; } /* 2km a 5km */
+.acerto-cinza { background-color: #95a5a6; color: white; } /* Mais de 5km */
+
+/* Estilo da Pista de Linha (Compartilha Linha) */
+.acerto-linha { 
+    background-color: #f39c12; /* Dourado/Laranja da Urbs */
+    color: white; 
+} 
+
+.erro-linha {
+    background-color: #bdc3c7; /* Cinza claro para 'Nenhuma Linha' */
+    color: #333;
+}
+
+/* Estilo da Pista de Direção (Seta) */
+.acerto-direcao {
+    font-size: 1.5em; /* Torna a seta maior e visível */
+    font-weight: bold;
+}
