@@ -1,0 +1,1426 @@
+[
+  {
+    "Num":1,
+    "Estação ":"Terminal Campo Comprido",
+    "Latitude":"-25,441668",
+    "Longitude":"-49,346710",
+    "Linha":"303, 304",
+    "Prioridade":1
+  },
+  {
+    "Num":2,
+    "Estação ":"U.S. Campo Comprido",
+    "Latitude":"-25,441008",
+    "Longitude":"-49,342518",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":3,
+    "Estação ":"Imperial",
+    "Latitude":"-25,440019",
+    "Longitude":"-49,336945",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":4,
+    "Estação ":"Mossunguê",
+    "Latitude":"-25,438644",
+    "Longitude":"-49,333148",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":5,
+    "Estação ":"São Grato",
+    "Latitude":"-25,436535",
+    "Longitude":"-49,328504",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":6,
+    "Estação ":"Paulo Gorski",
+    "Latitude":"-25,437550",
+    "Longitude":"-49,324378",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":7,
+    "Estação ":"Rio Barigui",
+    "Latitude":"-25,439211",
+    "Longitude":"-49,317711",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":8,
+    "Estação ":"Major Heitor Guimarães",
+    "Latitude":"-25,437874",
+    "Longitude":"-49,314093",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":9,
+    "Estação ":"Terminal Campina do Siqueira",
+    "Latitude":"-25,435957",
+    "Longitude":"-49,307322",
+    "Linha":"303, 022\/023, 304",
+    "Prioridade":1
+  },
+  {
+    "Num":10,
+    "Estação ":"Gastão Câmara",
+    "Latitude":"-25,434987",
+    "Longitude":"-49,304340",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":11,
+    "Estação ":"Bigorrilho",
+    "Latitude":"-25,433256",
+    "Longitude":"-49,299949",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":12,
+    "Estação ":"Bruno Filgueira",
+    "Latitude":"-25,431907",
+    "Longitude":"-49,296544",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":13,
+    "Estação ":"Praça da Ucrânia",
+    "Latitude":"-25,430372",
+    "Longitude":"-49,292609",
+    "Linha":"303",
+    "Prioridade":2
+  },
+  {
+    "Num":14,
+    "Estação ":"Presidente Taunay",
+    "Latitude":"-25,428818",
+    "Longitude":"-49,288002",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":15,
+    "Estação ":"Brigadeiro Franco",
+    "Latitude":"-25,429535",
+    "Longitude":"-49,283801",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":16,
+    "Estação ":"Visconde de Nacar",
+    "Latitude":"-25,431311",
+    "Longitude":"-49,278863",
+    "Linha":"303",
+    "Prioridade":3
+  },
+  {
+    "Num":17,
+    "Estação ":"Praça Osório",
+    "Latitude":"-25,433813",
+    "Longitude":"-49,277136",
+    "Linha":"303",
+    "Prioridade":2
+  },
+  {
+    "Num":18,
+    "Estação ":"Praça Rui Barbosa",
+    "Latitude":"-25,435734",
+    "Longitude":"-49,274342",
+    "Linha":"303, 603, C01, 506, 210, 707",
+    "Prioridade":1
+  },
+  {
+    "Num":19,
+    "Estação ":"Praça Eufrásio Correia",
+    "Latitude":"-25,437524",
+    "Longitude":"-49,266570",
+    "Linha":"303, 203, 250, C01",
+    "Prioridade":1
+  },
+  {
+    "Num":20,
+    "Estação ":"Mariano Torres",
+    "Latitude":"-25,435728",
+    "Longitude":"-49,260800",
+    "Linha":"303, C01",
+    "Prioridade":3
+  },
+  {
+    "Num":21,
+    "Estação ":"Rodoferroviária",
+    "Latitude":"-25,435627",
+    "Longitude":"-49,256601",
+    "Linha":"303, C01, 304, 518",
+    "Prioridade":1
+  },
+  {
+    "Num":22,
+    "Estação ":"Viaduto do Capanema",
+    "Latitude":"-25,435624",
+    "Longitude":"-49,250585",
+    "Linha":"303, C01",
+    "Prioridade":3
+  },
+  {
+    "Num":23,
+    "Estação ":"Hospital Cajuru",
+    "Latitude":"-25,437068",
+    "Longitude":"-49,243696",
+    "Linha":"303, C01",
+    "Prioridade":3
+  },
+  {
+    "Num":24,
+    "Estação ":"Jardim Botânico",
+    "Latitude":"-25,438150",
+    "Longitude":"-49,238714",
+    "Linha":"303, C01",
+    "Prioridade":3
+  },
+  {
+    "Num":25,
+    "Estação ":"Urbano Lopes",
+    "Latitude":"-25,440775",
+    "Longitude":"-49,236654",
+    "Linha":"303, C01",
+    "Prioridade":4
+  },
+  {
+    "Num":26,
+    "Estação ":"Del. Amazor Prestes",
+    "Latitude":"-25,441809",
+    "Longitude":"-49,230771",
+    "Linha":"303, C01",
+    "Prioridade":4
+  },
+  {
+    "Num":27,
+    "Estação ":"Profª. Maria Aguiar Teixeira",
+    "Latitude":"-25,438867",
+    "Longitude":"-49,226264",
+    "Linha":"303, C01",
+    "Prioridade":4
+  },
+  {
+    "Num":28,
+    "Estação ":"Terminal Capão Da Imbuia",
+    "Latitude":"-25,439974",
+    "Longitude":"-49,221854",
+    "Linha":"303, C01, 304",
+    "Prioridade":1
+  },
+  {
+    "Num":29,
+    "Estação ":"Germânia",
+    "Latitude":"-25,442186",
+    "Longitude":"-49,217700",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":30,
+    "Estação ":"Antonio Meirelles Sobrinho",
+    "Latitude":"-25,446989",
+    "Longitude":"-49,216865",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":31,
+    "Estação ":"Terminal Vila Oficinas",
+    "Latitude":"-25,451559",
+    "Longitude":"-49,215054",
+    "Linha":"303",
+    "Prioridade":1
+  },
+  {
+    "Num":32,
+    "Estação ":"Teofilo Otoni",
+    "Latitude":"-25,457301",
+    "Longitude":"-49,213022",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":33,
+    "Estação ":"Cajuru",
+    "Latitude":"-25,460426",
+    "Longitude":"-49,211825",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":34,
+    "Estação ":"Catulo da Paixão Cearense",
+    "Latitude":"-25,465430",
+    "Longitude":"-49,209785",
+    "Linha":"303",
+    "Prioridade":4
+  },
+  {
+    "Num":35,
+    "Estação ":"Terminal Centenário",
+    "Latitude":"-25,468901",
+    "Longitude":"-49,208223",
+    "Linha":"303, 305",
+    "Prioridade":1
+  },
+  {
+    "Num":36,
+    "Estação ":"Terminal Santa Cândida",
+    "Latitude":"-25,377001",
+    "Longitude":"-49,224429",
+    "Linha":"203",
+    "Prioridade":1
+  },
+  {
+    "Num":37,
+    "Estação ":"Joaquim Nabuco",
+    "Latitude":"-25,380774",
+    "Longitude":"-49,228854",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":38,
+    "Estação ":"Fernando de Noronha",
+    "Latitude":"-25,385141",
+    "Longitude":"-49,232843",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":39,
+    "Estação ":"Antônio Lago",
+    "Latitude":"-25,388791",
+    "Longitude":"-49,236232",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":40,
+    "Estação ":"Terminal Boa Vista",
+    "Latitude":"-25,393281",
+    "Longitude":"-49,241058",
+    "Linha":"203",
+    "Prioridade":1
+  },
+  {
+    "Num":41,
+    "Estação ":"Gago Coutinho",
+    "Latitude":"-25,396519",
+    "Longitude":"-49,243381",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":42,
+    "Estação ":"Holanda",
+    "Latitude":"-25,399582",
+    "Longitude":"-49,246238",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":43,
+    "Estação ":"Antônio Cavalheiros",
+    "Latitude":"-25,403490",
+    "Longitude":"-49,249848",
+    "Linha":"203",
+    "Prioridade":4
+  },
+  {
+    "Num":44,
+    "Estação ":"Terminal Cabral",
+    "Latitude":"-25,406361",
+    "Longitude":"-49,252646",
+    "Linha":"203, 250, 210, 607, 022\/023, 700",
+    "Prioridade":1
+  },
+  {
+    "Num":45,
+    "Estação ":"Bom Jesus",
+    "Latitude":"-25,410065",
+    "Longitude":"-49,255957",
+    "Linha":"203",
+    "Prioridade":3
+  },
+  {
+    "Num":46,
+    "Estação ":"Moisés Marcondes",
+    "Latitude":"-25,413356",
+    "Longitude":"-49,258953",
+    "Linha":"203",
+    "Prioridade":3
+  },
+  {
+    "Num":47,
+    "Estação ":"Constantino Marochi",
+    "Latitude":"-25,416076",
+    "Longitude":"-49,261524",
+    "Linha":"203",
+    "Prioridade":3
+  },
+  {
+    "Num":48,
+    "Estação ":"Maria Clara",
+    "Latitude":"-25,419888",
+    "Longitude":"-49,265081",
+    "Linha":"203",
+    "Prioridade":3
+  },
+  {
+    "Num":49,
+    "Estação ":"Passeio Público",
+    "Latitude":"-25,423925",
+    "Longitude":"-49,268370",
+    "Linha":"203, 250",
+    "Prioridade":1
+  },
+  {
+    "Num":50,
+    "Estação ":"Central",
+    "Latitude":"-25,430010",
+    "Longitude":"-49,267617",
+    "Linha":"203, 250",
+    "Prioridade":1
+  },
+  {
+    "Num":51,
+    "Estação ":"Alferes Poli",
+    "Latitude":"-25,439465",
+    "Longitude":"-49,271554",
+    "Linha":"203, 603",
+    "Prioridade":3
+  },
+  {
+    "Num":52,
+    "Estação ":"Praça Oswaldo Cruz",
+    "Latitude":"-25,441594",
+    "Longitude":"-49,277105",
+    "Linha":"203, 603, 250",
+    "Prioridade":1
+  },
+  {
+    "Num":53,
+    "Estação ":"Coronel Dulcídio",
+    "Latitude":"-25,442924",
+    "Longitude":"-49,280505",
+    "Linha":"203, 603",
+    "Prioridade":3
+  },
+  {
+    "Num":54,
+    "Estação ":"Bento Viana",
+    "Latitude":"-25,444822",
+    "Longitude":"-49,285560",
+    "Linha":"203, 603, 250",
+    "Prioridade":1
+  },
+  {
+    "Num":55,
+    "Estação ":"Silva Jardim",
+    "Latitude":"-25,448297",
+    "Longitude":"-49,287864",
+    "Linha":"203, 603",
+    "Prioridade":3
+  },
+  {
+    "Num":56,
+    "Estação ":"Petit Carneiro",
+    "Latitude":"-25,452311",
+    "Longitude":"-49,287942",
+    "Linha":"203, 603",
+    "Prioridade":3
+  },
+  {
+    "Num":57,
+    "Estação ":"Dom Pedro I",
+    "Latitude":"-25,456914",
+    "Longitude":"-49,288501",
+    "Linha":"203, 603",
+    "Prioridade":4
+  },
+  {
+    "Num":58,
+    "Estação ":"Sebastião Paraná",
+    "Latitude":"-25,461163",
+    "Longitude":"-49,289869",
+    "Linha":"203, 603",
+    "Prioridade":4
+  },
+  {
+    "Num":59,
+    "Estação ":"Vital Brasil",
+    "Latitude":"-25,464656",
+    "Longitude":"-49,291299",
+    "Linha":"203, 603",
+    "Prioridade":4
+  },
+  {
+    "Num":60,
+    "Estação ":"Morretes",
+    "Latitude":"-25,467636",
+    "Longitude":"-49,293203",
+    "Linha":"203, 603",
+    "Prioridade":4
+  },
+  {
+    "Num":61,
+    "Estação ":"Carlos Dietzch",
+    "Latitude":"-25,472617",
+    "Longitude":"-49,294466",
+    "Linha":"203, 603",
+    "Prioridade":4
+  },
+  {
+    "Num":62,
+    "Estação ":"Terminal Portão",
+    "Latitude":"-25,476274",
+    "Longitude":"-49,292630",
+    "Linha":"203, 603, 250, 502\/602, 022\/023, 700",
+    "Prioridade":1
+  },
+  {
+    "Num":63,
+    "Estação ":"Itajubá",
+    "Latitude":"-25,481084",
+    "Longitude":"-49,292610",
+    "Linha":"203, 603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":64,
+    "Estação ":"Hospital do Trabalhador",
+    "Latitude":"-25,484417",
+    "Longitude":"-49,293803",
+    "Linha":"203, 603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":65,
+    "Estação ":"Herculano de Araújo",
+    "Latitude":"-25,487766",
+    "Longitude":"-49,294340",
+    "Linha":"203, 603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":66,
+    "Estação ":"Terminal Capão Raso",
+    "Latitude":"-25,492000",
+    "Longitude":"-49,293372",
+    "Linha":"203, 603, 250, 502\/602, 210, 607, 022\/023, 610, 507\/508",
+    "Prioridade":1
+  },
+  {
+    "Num":67,
+    "Estação ":"Pedro Gusso",
+    "Latitude":"-25,495522",
+    "Longitude":"-49,294544",
+    "Linha":"603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":68,
+    "Estação ":"José Bettega",
+    "Latitude":"-25,499490",
+    "Longitude":"-49,296044",
+    "Linha":"603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":69,
+    "Estação ":"Santa Regina",
+    "Latitude":"-25,503230",
+    "Longitude":"-49,295994",
+    "Linha":"603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":70,
+    "Estação ":"Ouro Verde",
+    "Latitude":"-25,507630",
+    "Longitude":"-49,295867",
+    "Linha":"603, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":71,
+    "Estação ":"Terminal Pinheirinho",
+    "Latitude":"-25,512636",
+    "Longitude":"-49,295236",
+    "Linha":"603, 250, 350, 550, 502\/602, 610, 700, 507\/508",
+    "Prioridade":1
+  },
+  {
+    "Num":72,
+    "Estação ":"Praça Carlos Gomes",
+    "Latitude":"-25,433718",
+    "Longitude":"-49,270233",
+    "Linha":"503, 500, 550",
+    "Prioridade":1
+  },
+  {
+    "Num":73,
+    "Estação ":"UTFPR",
+    "Latitude":"-25,438864",
+    "Longitude":"-49,268187",
+    "Linha":"503, 500, 550",
+    "Prioridade":1
+  },
+  {
+    "Num":74,
+    "Estação ":"Getúlio Vargas",
+    "Latitude":"-25,443593",
+    "Longitude":"-49,265707",
+    "Linha":"503",
+    "Prioridade":3
+  },
+  {
+    "Num":75,
+    "Estação ":"Almirante Gonçalves",
+    "Latitude":"-25,447463",
+    "Longitude":"-49,263829",
+    "Linha":"503, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":76,
+    "Estação ":"Conselheiro Dantas",
+    "Latitude":"-25,451455",
+    "Longitude":"-49,261905",
+    "Linha":"503",
+    "Prioridade":4
+  },
+  {
+    "Num":77,
+    "Estação ":"João Viana Seiler",
+    "Latitude":"-25,454403",
+    "Longitude":"-49,260476",
+    "Linha":"503",
+    "Prioridade":4
+  },
+  {
+    "Num":78,
+    "Estação ":"TRE",
+    "Latitude":"-25,458132",
+    "Longitude":"-49,258649",
+    "Linha":"503, 500, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":79,
+    "Estação ":"Parolin",
+    "Latitude":"-25,462954",
+    "Longitude":"-49,256279",
+    "Linha":"503, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":80,
+    "Estação ":"Ferrovila",
+    "Latitude":"-25,466661",
+    "Longitude":"-49,254356",
+    "Linha":"503",
+    "Prioridade":4
+  },
+  {
+    "Num":81,
+    "Estação ":"Roberto Hauer",
+    "Latitude":"-25,472328",
+    "Longitude":"-49,251701",
+    "Linha":"503, 500, 502\/602",
+    "Prioridade":2
+  },
+  {
+    "Num":82,
+    "Estação ":"Pádua Fleury",
+    "Latitude":"-25,475895",
+    "Longitude":"-49,249996",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":83,
+    "Estação ":"Terminal Hauer",
+    "Latitude":"-25,481798",
+    "Longitude":"-49,247126",
+    "Linha":"503, 500, 502\/602, 206, 505, 022\/023",
+    "Prioridade":1
+  },
+  {
+    "Num":84,
+    "Estação ":"Passarela",
+    "Latitude":"-25,485870",
+    "Longitude":"-49,245122",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":85,
+    "Estação ":"Hipólito da Costa",
+    "Latitude":"-25,489686",
+    "Longitude":"-49,243262",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":86,
+    "Estação ":"Cel. Luiz José dos Santos",
+    "Latitude":"-25,495192",
+    "Longitude":"-49,240573",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":87,
+    "Estação ":"Terminal Carmo",
+    "Latitude":"-25,501107",
+    "Longitude":"-49,237684",
+    "Linha":"503, 500, 502\/602, 206, 505, 507\/508",
+    "Prioridade":1
+  },
+  {
+    "Num":88,
+    "Estação ":"Quartel",
+    "Latitude":"-25,506253",
+    "Longitude":"-49,235152",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":89,
+    "Estação ":"Antônio de Paula",
+    "Latitude":"-25,511517",
+    "Longitude":"-49,232590",
+    "Linha":"503, 502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":90,
+    "Estação ":"Terminal Boqueirão",
+    "Latitude":"-25,516219",
+    "Longitude":"-49,230330",
+    "Linha":"503, 500, 502\/602, 206, 505, 546, 507\/508",
+    "Prioridade":1
+  },
+  {
+    "Num":91,
+    "Estação ":"Atuba",
+    "Latitude":"-25,385923",
+    "Longitude":"-49,203378",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":92,
+    "Estação ":"Solar",
+    "Latitude":"-25,399964",
+    "Longitude":"-49,215807",
+    "Linha":"350",
+    "Prioridade":4
+  },
+  {
+    "Num":93,
+    "Estação ":"Fagundes Varela",
+    "Latitude":"-25,409997",
+    "Longitude":"-49,220310",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":94,
+    "Estação ":"Vila Olímpica",
+    "Latitude":"-25,419949",
+    "Longitude":"-49,224829",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":95,
+    "Estação ":"Jardim Botânico (Linha Verde)",
+    "Latitude":"-25,441868",
+    "Longitude":"-49,233763",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":96,
+    "Estação ":"UFPR",
+    "Latitude":"-25,448809",
+    "Longitude":"-49,235748",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":97,
+    "Estação ":"PRF (Polícia Rodoviária Federal)",
+    "Latitude":"-25,452885",
+    "Longitude":"-49,242774",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":98,
+    "Estação ":"PUC (Linha Verde)",
+    "Latitude":"-25,458866",
+    "Longitude":"-49,249889",
+    "Linha":"350",
+    "Prioridade":3
+  },
+  {
+    "Num":99,
+    "Estação ":"Marechal Floriano Peixoto",
+    "Latitude":"-25,469108",
+    "Longitude":"-49,254026",
+    "Linha":"350, 550, 502\/602",
+    "Prioridade":2
+  },
+  {
+    "Num":100,
+    "Estação ":"Fanny",
+    "Latitude":"-25,474822",
+    "Longitude":"-49,258696",
+    "Linha":"350, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":101,
+    "Estação ":"Santa Bernadethe",
+    "Latitude":"-25,485134",
+    "Longitude":"-49,266977",
+    "Linha":"350, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":102,
+    "Estação ":"Xaxim (Linha Verde)",
+    "Latitude":"-25,496653",
+    "Longitude":"-49,276352",
+    "Linha":"350, 550",
+    "Prioridade":2
+  },
+  {
+    "Num":103,
+    "Estação ":"Vila São Pedro",
+    "Latitude":"-25,506733",
+    "Longitude":"-49,284463",
+    "Linha":"350, 550, 506",
+    "Prioridade":2
+  },
+  {
+    "Num":104,
+    "Estação ":"Quitandinha",
+    "Latitude":"-25,535688",
+    "Longitude":"-49,274888",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":105,
+    "Estação ":"Arroio Cercado",
+    "Latitude":"-25,534541",
+    "Longitude":"-49,282629",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":106,
+    "Estação ":"Terminal Sítio Cercado",
+    "Latitude":"-25,534324",
+    "Longitude":"-49,268078",
+    "Linha":"502\/602, 506, 546, 610, 507\/508, 520",
+    "Prioridade":1
+  },
+  {
+    "Num":107,
+    "Estação ":"Rosa Tortato",
+    "Latitude":"-25,530726",
+    "Longitude":"-49,287649",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":108,
+    "Estação ":"Sagrado Coração",
+    "Latitude":"-25,527941",
+    "Longitude":"-49,291355",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":109,
+    "Estação ":"Winston Churchill",
+    "Latitude":"-25,520732",
+    "Longitude":"-49,295544",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":110,
+    "Estação ":"Wenceslau Braz",
+    "Latitude":"-25,477415",
+    "Longitude":"-49,285005",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":111,
+    "Estação ":"Dom Ático",
+    "Latitude":"-25,476250",
+    "Longitude":"-49,280221",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":112,
+    "Estação ":"Antero de Quental",
+    "Latitude":"-25,474760",
+    "Longitude":"-49,274127",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":113,
+    "Estação ":"Lindoia",
+    "Latitude":"-25,473775",
+    "Longitude":"-49,270057",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":114,
+    "Estação ":"Marumby",
+    "Latitude":"-25,472419",
+    "Longitude":"-49,264480",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":115,
+    "Estação ":"Parque Iguaçu",
+    "Latitude":"-25,521045",
+    "Longitude":"-49,227940",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":116,
+    "Estação ":"Erton Coelho",
+    "Latitude":"-25,525246",
+    "Longitude":"-49,231044",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":117,
+    "Estação ":"Araçá",
+    "Latitude":"-25,526459",
+    "Longitude":"-49,236120",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":118,
+    "Estação ":"Nova Europa",
+    "Latitude":"-25,527597",
+    "Longitude":"-49,240795",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":119,
+    "Estação ":"Eucaliptos",
+    "Latitude":"-25,528829",
+    "Longitude":"-49,245920",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":120,
+    "Estação ":"Euclides da Cunha",
+    "Latitude":"-25,529824",
+    "Longitude":"-49,250189",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":121,
+    "Estação ":"Érico Veríssimo",
+    "Latitude":"-25,531125",
+    "Longitude":"-49,255630",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":122,
+    "Estação ":"Coqueiros",
+    "Latitude":"-25,532493",
+    "Longitude":"-49,261822",
+    "Linha":"502\/602",
+    "Prioridade":4
+  },
+  {
+    "Num":123,
+    "Estação ":"Pastor Manoel Virginio De Souza",
+    "Latitude":"-25,443147",
+    "Longitude":"-49,214319",
+    "Linha":"C01",
+    "Prioridade":4
+  },
+  {
+    "Num":124,
+    "Estação ":"Paulo Kissula",
+    "Latitude":"-25,443772",
+    "Longitude":"-49,209125",
+    "Linha":"C01",
+    "Prioridade":4
+  },
+  {
+    "Num":125,
+    "Estação ":"Vila Nova",
+    "Latitude":"-25,443265",
+    "Longitude":"-49,203490",
+    "Linha":"C01",
+    "Prioridade":4
+  },
+  {
+    "Num":126,
+    "Estação ":"Autódromo",
+    "Latitude":"-25,443880",
+    "Longitude":"-49,196660",
+    "Linha":"C01",
+    "Prioridade":4
+  },
+  {
+    "Num":127,
+    "Estação ":"Camilo De Lellis",
+    "Latitude":"-25,446010",
+    "Longitude":"-49,188993",
+    "Linha":"C01",
+    "Prioridade":4
+  },
+  {
+    "Num":128,
+    "Estação ":"Terminal Pinhais",
+    "Latitude":"-25,440111",
+    "Longitude":"-49,182931",
+    "Linha":"C01, 304",
+    "Prioridade":1
+  },
+  {
+    "Num":129,
+    "Estação ":"Santa Quitéria",
+    "Latitude":"-25,459168",
+    "Longitude":"-49,302382",
+    "Linha":"022\/023, 702",
+    "Prioridade":2
+  },
+  {
+    "Num":130,
+    "Estação ":"Mêrces",
+    "Latitude":"-25,422275",
+    "Longitude":"-49,291633",
+    "Linha":"022\/023, 307",
+    "Prioridade":2
+  },
+  {
+    "Num":131,
+    "Estação ":"Praça da Bandeira\/Teffé",
+    "Latitude":"-25,416571",
+    "Longitude":"-49,279267",
+    "Linha":"022\/023",
+    "Prioridade":2
+  },
+  {
+    "Num":132,
+    "Estação ":"Centro Cívico (Assembleia\/Palácio Iguaçu)",
+    "Latitude":"-25,415616",
+    "Longitude":"-49,266368",
+    "Linha":"022\/023, 206, 505, 702",
+    "Prioridade":2
+  },
+  {
+    "Num":133,
+    "Estação ":"Agrárias",
+    "Latitude":"-25,410589",
+    "Longitude":"-49,248300",
+    "Linha":"022\/023",
+    "Prioridade":2
+  },
+  {
+    "Num":134,
+    "Estação ":"Praça das Nações",
+    "Latitude":"-25,425951",
+    "Longitude":"-49,242342",
+    "Linha":"022\/023, 307",
+    "Prioridade":2
+  },
+  {
+    "Num":135,
+    "Estação ":"Colégio Militar",
+    "Latitude":"-25,428885",
+    "Longitude":"-49,225091",
+    "Linha":"022\/023, 307",
+    "Prioridade":2
+  },
+  {
+    "Num":136,
+    "Estação ":"Jardim das Américas",
+    "Latitude":"-25,452339",
+    "Longitude":"-49,229931",
+    "Linha":"022\/023, 469",
+    "Prioridade":2
+  },
+  {
+    "Num":137,
+    "Estação ":"Salgado Filho",
+    "Latitude":"-25,471708",
+    "Longitude":"-49,237481",
+    "Linha":"022\/023",
+    "Prioridade":2
+  },
+  {
+    "Num":138,
+    "Estação ":"Xaxim",
+    "Latitude":"-25,496316",
+    "Longitude":"-49,270384",
+    "Linha":"022\/023",
+    "Prioridade":2
+  },
+  {
+    "Num":139,
+    "Estação ":"Detran",
+    "Latitude":"-25,430349",
+    "Longitude":"-49,211220",
+    "Linha":"022\/023, 307",
+    "Prioridade":2
+  },
+  {
+    "Num":140,
+    "Estação ":"Terminal Santa Felicidade",
+    "Latitude":"-25,400881",
+    "Longitude":"-49,330332",
+    "Linha":"307",
+    "Prioridade":1
+  },
+  {
+    "Num":141,
+    "Estação ":"Praça 29 de Março",
+    "Latitude":"-25,428453",
+    "Longitude":"-49,284871",
+    "Linha":"307, 304",
+    "Prioridade":3
+  },
+  {
+    "Num":142,
+    "Estação ":"Praça Tiradentes\/Nestor de Castro",
+    "Latitude":"-25,429344",
+    "Longitude":"-49,272018",
+    "Linha":"307, 210, 607, 304",
+    "Prioridade":2
+  },
+  {
+    "Num":143,
+    "Estação ":"China",
+    "Latitude":"-25,423647",
+    "Longitude":"-49,202342",
+    "Linha":"307",
+    "Prioridade":4
+  },
+  {
+    "Num":144,
+    "Estação ":"Terminal Bairro Alto",
+    "Latitude":"-25,413009",
+    "Longitude":"-49,205358",
+    "Linha":"307",
+    "Prioridade":1
+  },
+  {
+    "Num":145,
+    "Estação ":"Pres. Kennedy",
+    "Latitude":"-25,455510",
+    "Longitude":"-49,267577",
+    "Linha":"506, 210, 607",
+    "Prioridade":4
+  },
+  {
+    "Num":146,
+    "Estação ":"Vila Acordes",
+    "Latitude":"-25,524858",
+    "Longitude":"-49,268850",
+    "Linha":"506",
+    "Prioridade":4
+  },
+  {
+    "Num":147,
+    "Estação ":"Bairro Novo",
+    "Latitude":"-25,544734",
+    "Longitude":"-49,265776",
+    "Linha":"506, 520",
+    "Prioridade":4
+  },
+  {
+    "Num":148,
+    "Estação ":"Centro Médico Comunitário",
+    "Latitude":"-25,547674",
+    "Longitude":"-49,260309",
+    "Linha":"506, 520",
+    "Prioridade":4
+  },
+  {
+    "Num":149,
+    "Estação ":"Osternack",
+    "Latitude":"-25,553169",
+    "Longitude":"-49,250915",
+    "Linha":"506, 520",
+    "Prioridade":4
+  },
+  {
+    "Num":150,
+    "Estação ":"Terminal Barreirinha",
+    "Latitude":"-25,377425",
+    "Longitude":"-49,262556",
+    "Linha":"206, 702",
+    "Prioridade":1
+  },
+  {
+    "Num":151,
+    "Estação ":"Ahú",
+    "Latitude":"-25,391129",
+    "Longitude":"-49,258141",
+    "Linha":"206, 702",
+    "Prioridade":4
+  },
+  {
+    "Num":152,
+    "Estação ":"Comendador Fontana",
+    "Latitude":"-25,419748",
+    "Longitude":"-49,269084",
+    "Linha":"206, 505, 469, 210, 607, 700",
+    "Prioridade":2
+  },
+  {
+    "Num":153,
+    "Estação ":"Circulo Militar",
+    "Latitude":"-25,426995",
+    "Longitude":"-49,264726",
+    "Linha":"206, 505, 469, 700",
+    "Prioridade":2
+  },
+  {
+    "Num":154,
+    "Estação ":"Terminal Guadalupe",
+    "Latitude":"-25,432622",
+    "Longitude":"-49,264904",
+    "Linha":"206, 505, 702, 700, 507\/508",
+    "Prioridade":1
+  },
+  {
+    "Num":155,
+    "Estação ":"Paiol",
+    "Latitude":"-25,448137",
+    "Longitude":"-49,257979",
+    "Linha":"206, 505, 707, 518, 507\/508",
+    "Prioridade":2
+  },
+  {
+    "Num":156,
+    "Estação ":"Terminal São José dos Pinhais",
+    "Latitude":"-25,529946",
+    "Longitude":"-49,204770",
+    "Linha":"206",
+    "Prioridade":1
+  },
+  {
+    "Num":157,
+    "Estação ":"Prefeitura",
+    "Latitude":"-25,417826",
+    "Longitude":"-49,268682",
+    "Linha":"505, 702, 469",
+    "Prioridade":2
+  },
+  {
+    "Num":158,
+    "Estação ":"Museu Oscar Niemeyer",
+    "Latitude":"-25,410712",
+    "Longitude":"-49,266079",
+    "Linha":"505",
+    "Prioridade":3
+  },
+  {
+    "Num":159,
+    "Estação ":"Terminal Cachoeira",
+    "Latitude":"-25,339470",
+    "Longitude":"-49,271246",
+    "Linha":"702",
+    "Prioridade":1
+  },
+  {
+    "Num":160,
+    "Estação ":"Rebouças\/Vale do Pinhão",
+    "Latitude":"-25,439610",
+    "Longitude":"-49,262648",
+    "Linha":"702, 700, 507\/508",
+    "Prioridade":3
+  },
+  {
+    "Num":161,
+    "Estação ":"Westphalen",
+    "Latitude":"-25,441797",
+    "Longitude":"-49,268327",
+    "Linha":"702, 700, 507\/508",
+    "Prioridade":3
+  },
+  {
+    "Num":162,
+    "Estação ":"Água Verde",
+    "Latitude":"-25,448263",
+    "Longitude":"-49,285394",
+    "Linha":"702, 700, 507\/508",
+    "Prioridade":3
+  },
+  {
+    "Num":163,
+    "Estação ":"Terminal Fazendinha",
+    "Latitude":"-25,477309",
+    "Longitude":"-49,327084",
+    "Linha":"702",
+    "Prioridade":1
+  },
+  {
+    "Num":164,
+    "Estação ":"Terminal Caiuá",
+    "Latitude":"-25,483727",
+    "Longitude":"-49,350159",
+    "Linha":"702",
+    "Prioridade":1
+  },
+  {
+    "Num":165,
+    "Estação ":"Praça 19 de Dezembro",
+    "Latitude":"-25,423178",
+    "Longitude":"-49,269731",
+    "Linha":"702",
+    "Prioridade":3
+  },
+  {
+    "Num":166,
+    "Estação ":"Marechal Deodoro",
+    "Latitude":"-25,428934",
+    "Longitude":"-49,263649",
+    "Linha":"305",
+    "Prioridade":3
+  },
+  {
+    "Num":167,
+    "Estação ":"Praça do Expedicionário",
+    "Latitude":"-25,428862",
+    "Longitude":"-49,258176",
+    "Linha":"305, 469",
+    "Prioridade":4
+  },
+  {
+    "Num":168,
+    "Estação ":"Vila Guaíra",
+    "Latitude":"-25,471886",
+    "Longitude":"-49,285723",
+    "Linha":"210, 607",
+    "Prioridade":4
+  },
+  {
+    "Num":169,
+    "Estação ":"Terminal CIC",
+    "Latitude":"-25,511654",
+    "Longitude":"-49,324506",
+    "Linha":"210, 607",
+    "Prioridade":1
+  },
+  {
+    "Num":170,
+    "Estação ":"Sete de Setembro",
+    "Latitude":"-25,440301",
+    "Longitude":"-49,271768",
+    "Linha":"607",
+    "Prioridade":3
+  },
+  {
+    "Num":171,
+    "Estação ":"Terminal Maracanã",
+    "Latitude":"-25,366829",
+    "Longitude":"-49,186830",
+    "Linha":"607",
+    "Prioridade":1
+  },
+  {
+    "Num":172,
+    "Estação ":"Barigui",
+    "Latitude":"-25,436612",
+    "Longitude":"-49,317944",
+    "Linha":"304",
+    "Prioridade":4
+  },
+  {
+    "Num":173,
+    "Estação ":"CIC Norte",
+    "Latitude":"-25,449637",
+    "Longitude":"-49,353826",
+    "Linha":"304",
+    "Prioridade":4
+  },
+  {
+    "Num":174,
+    "Estação ":"Alto Boqueirão",
+    "Latitude":"-25,525011",
+    "Longitude":"-49,247594",
+    "Linha":"546, 507\/508",
+    "Prioridade":4
+  },
+  {
+    "Num":175,
+    "Estação ":"Xapinhal",
+    "Latitude":"-25,535704",
+    "Longitude":"-49,284756",
+    "Linha":"610, 507\/508",
+    "Prioridade":4
+  },
+  {
+    "Num":176,
+    "Estação ":"Terminal Tatuquara",
+    "Latitude":"-25,576210",
+    "Longitude":"-49,331319",
+    "Linha":"707",
+    "Prioridade":1
+  },
+  {
+    "Num":177,
+    "Estação ":"PUC",
+    "Latitude":"-25,453340",
+    "Longitude":"-49,252608",
+    "Linha":"707, 518",
+    "Prioridade":3
+  },
+  {
+    "Num":178,
+    "Estação ":"Jardim Botanico (Lothario Meissner)",
+    "Latitude":"-25,444113",
+    "Longitude":"-49,239836",
+    "Linha":"305, 469",
+    "Prioridade":3
+  }
+]
