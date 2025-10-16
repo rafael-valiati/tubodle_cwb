@@ -413,26 +413,45 @@ function configurarInput() {
         dataList.appendChild(option);
     });
     
-    // 3. Configura o botão "Chutar"
-    chutarBtn.addEventListener('click', () => {
-        const nomePalpite = input.value.trim(); // Limpa espaços no clique
+    // 3. Configura o botão "Chutar" (Clique do Mouse)
+    chutarBtn.addEventListener('click', (event) => {
+        // PREVINE o comportamento padrão (que pode limpar o input)
+        event.preventDefault(); 
         
-        // LOG DE VERIFICAÇÃO: Se esta mensagem aparecer, o evento funcionou.
-        console.log("-> Evento 'Chutar' DISPARADO. Palpite:", nomePalpite); 
+        const nomePalpite = input.value.trim(); 
+        
+        // Logs de verificação:
+        console.log("CLIQUE: Palpite lido:", nomePalpite);
         
         if (nomePalpite) {
+            console.log("CLIQUE: Chamando processarPalpite com:", nomePalpite);
             processarPalpite(nomePalpite);
-            input.value = ''; // Limpa o input
+            input.value = ''; 
         } else {
+            console.warn("CLIQUE: Input vazio. Disparando Alerta.");
             alert("Por favor, digite o nome de uma estação.");
         }
     });
-    
-    // 4. Permite chutar com a tecla ENTER
+        
+    // 4. Permite chutar com a tecla ENTER (Evento Keypress)
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            // Se o botão for clicado, ele dispara o evento de cima.
-            chutarBtn.click();
+            // CORREÇÃO: Usamos preventDefault E chamamos a lógica diretamente
+            e.preventDefault(); 
+    
+            const nomePalpite = input.value.trim(); 
+            
+            // Logs de verificação:
+            console.log("ENTER: Palpite lido:", nomePalpite); 
+    
+            if (nomePalpite) {
+                console.log("ENTER: Chamando processarPalpite com:", nomePalpite);
+                processarPalpite(nomePalpite);
+                input.value = '';
+            } else {
+                console.warn("ENTER: Input vazio. Disparando Alerta.");
+                alert("Por favor, digite o nome de uma estação.");
+            }
         }
     });
 }
