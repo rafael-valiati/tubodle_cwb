@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tubodle Curitiba</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20n6c6lM58WdC2h3nS6gS38o6M7Ue8L1H/B8z2P/lO0="
+        crossorigin=""></script>
+</head>
+<body>
+    <header>
+        <h1>Tubodle Curitiba</h1>
+        <p id="game-status">Que estação-tubo de Curitiba é essa?</p>
+    </header>
+
+    <main class="container">
+        
+        <div id="mapa-previa"></div>
+
+        <div class="input-area">
+            <input type="text" id="palpite-input" list="estacoes-lista" placeholder="Nome da Estação" autofocus>
+            <datalist id="estacoes-lista"></datalist>
+            <button id="chutar-btn">Chutar</button>
+        </div>
+
+        <div id="grade-palpites">
+            <div class="header-linha">
+                <span>Estação</span>
+                <span>Distância</span>
+                <span>Direção</span>
+                <span>Linha Comum</span>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
