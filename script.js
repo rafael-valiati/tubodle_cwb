@@ -57,7 +57,6 @@ async function carregarDados() {
         // 4. Inicializa o Jogo
         selecionarEstacaoSecreta(); 
         inicializarMapaPrevia(); 
-        configurarInput();
         
         // Se deu certo, remove a mensagem de erro
         document.getElementById('game-status').innerText = "Que estação-tubo de Curitiba é essa?";
@@ -414,24 +413,28 @@ function configurarInput() {
     });
     
     // 3. Configura o botão "Chutar" (Clique do Mouse)
-    chutarBtn.addEventListener('click', (event) => {
-        // PREVINE o comportamento padrão (que pode limpar o input)
-        event.preventDefault(); 
-        
-        const nomePalpite = input.value.trim(); 
-        
-        // Logs de verificação:
-        console.log("CLIQUE: Palpite lido:", nomePalpite);
-        
-        if (nomePalpite) {
-            console.log("CLIQUE: Chamando processarPalpite com:", nomePalpite);
-            processarPalpite(nomePalpite);
-            input.value = ''; 
-        } else {
-            console.warn("CLIQUE: Input vazio. Disparando Alerta.");
-            alert("Por favor, digite o nome de uma estação.");
-        }
-    });
+chutarBtn.addEventListener('click', (event) => {
+    // PREVINE o comportamento padrão (submissão de formulário)
+    event.preventDefault(); 
+    
+    // FORÇA a interrupção de qualquer outro evento de clique subsequente
+    // Isso deve matar o duplo disparo que está lendo o valor vazio.
+    event.stopPropagation(); 
+
+    const nomePalpite = input.value.trim(); 
+    
+    // Logs de verificação:
+    console.log("CLIQUE: Palpite lido:", nomePalpite);
+    
+    if (nomePalpite) {
+        console.log("CLIQUE: Chamando processarPalpite com:", nomePalpite);
+        processarPalpite(nomePalpite);
+        input.value = ''; 
+    } else {
+        console.warn("CLIQUE: Input vazio. Disparando Alerta.");
+        alert("Por favor, digite o nome de uma estação.");
+    }
+});
         
     // 4. Permite chutar com a tecla ENTER (Evento Keypress)
     input.addEventListener('keypress', (e) => {
