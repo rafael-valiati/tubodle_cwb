@@ -308,3 +308,75 @@ function gerarFeedbackLinha(linhasEmComum, palpite) {
     
     return { classe, valorExibido };
 }
+
+// ... (Seu código existente: Variáveis Globais, carregarDados, selecionarEstacaoSecreta, etc.) ...
+
+// Variável para a instância do mapa Leaflet
+let mapa = null;
+let marcadorSecreto = null; // Para mostrar a estação no fim do jogo
+
+/**
+ * Inicializa o mapa, centralizando em um ponto aleatório próximo à estação secreta
+ * e esconde a localização exata, como uma prévia.
+ */
+function inicializarMapaPrevia() {
+    const lat = ESTACAO_SECRETA.Latitude;
+    const lon = ESTACAO_SECRETA.Longitude;
+    
+    // Centraliza o mapa em um ponto próximo (simulando um zoom nos arredores)
+    // Exemplo: 0.005 graus de offset = ~500 metros
+    const latCentral = lat + (Math.random() - 0.5) * 0.008; 
+    const lonCentral = lon + (Math.random() - 0.5) * 0.008;
+
+    // Configuração do mapa Leaflet
+    mapa = L.map('mapa-previa').setView([latCentral, lonCentral], 16); // Nível de zoom 16 é bom para rua
+
+    // Adiciona o tile layer (Camada de Mapa) do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+    }).addTo(mapa);
+    
+    // Adiciona um ponto CÍNZA (como o Metrodle) no centro da TELA, não na coordenada,
+    // para simular a localização aproximada.
+    L.circleMarker([latCentral, lonCentral], { 
+        radius: 8, 
+        color: '#555', 
+        fillColor: '#555', 
+        fillOpacity: 1 
+    }).addTo(mapa);
+
+    // Adiciona o autocomplete e eventos após o mapa
+    configurarInput();
+}
+
+
+/**
+ * Popula a lista de sugestões de Autocomplete e configura o evento "Chutar".
+ */
+function configurarInput() {
+    const dataList = document.getElementById('estacoes-lista');
+    const input = document.getElementById('palpite-input');
+    const chutarBtn = document.getElementById('chutar-btn');
+    
+    // 1. Popula o Autocomplete
+    TODAS_ESTACOES.forEach(estacao => {
+        const option = document.createElement('option');
+        option.value = estacao.Nome;
+        dataList.appendChild(option);
+    });
+
+    // 2. Configura o botão "Chutar"
+    chutarBtn.addEventListener('click', () => {
+        const nomePalpite = input.value;
+        processarPalpite(nomePalpite);
+        input.value = ''; // Limpa o input
+    });
+    
+    // 3. Permite chutar com a tecla ENTER
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            chutarBtn.click();
+        }
+    });
+}
