@@ -20,6 +20,13 @@ body {
     background-color: #121212; /* Fundo escuro */
 }
 
+/* Garante que TODO o texto no body seja CLARO */
+.dark-mode body,
+.dark-mode h1,
+.dark-mode #game-status {
+    color: #e0e0e0 !important; /* Branco suave para legibilidade */
+}
+
 .dark-mode header,
 .dark-mode #interface-jogo {
     background-color: #1f1f1f; /* Elementos mais claros que o fundo */
@@ -115,31 +122,33 @@ main {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    font-size: 15px;
+    font-size: 18px; /* AUMENTADO: de 15px para 18px */
 }
 
 #tentativas th, 
 #tentativas td {
-    padding: 10px;
+    padding: 12px; /* AUMENTADO: de 10px para 12px */
     text-align: left;
-    border-bottom: 1px solid #333; /* Linhas de grade mais suaves */
+    border-bottom: 1px solid #333; 
 }
 
 #tentativas thead th {
-    background-color: #2c2c2c; /* Cabeçalho ligeiramente mais escuro */
+    background-color: #2c2c2c; 
     font-weight: bold;
-    color: #4CAF50; /* Cor de destaque no cabeçalho */
+    color: #4CAF50; 
+    /* Adiciona uma linha inferior mais visível para separar o cabeçalho */
+    border-bottom: 2px solid #4CAF50; 
     border-top: 1px solid #333;
 }
 
+/* (O restante da tabela, como o estilo zebra, permanece o mesmo) */
 #tentativas tbody tr:nth-child(even) {
-    background-color: #242424; /* Zebra/listra para melhor leitura */
+    background-color: #242424;
 }
 
-/* Estilo para a Linha de Palpite Correto */
 .palpite-correto {
-    background-color: #4CAF50 !important; /* Fundo verde */
-    color: #121212; /* Texto escuro */
+    background-color: #4CAF50 !important; 
+    color: #121212; 
     font-weight: bold;
 }
 </style>
