@@ -6,7 +6,6 @@
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- NOVO: Importa a fonte Roboto do Google Fonts para uso no CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css"> 
@@ -20,6 +19,11 @@
     <main>
         <div id="game-status">Carregando dados...</div> 
 
+        <div id="progresso-container">
+            <span id="progresso-texto">0 / 6</span>
+            <progress id="progresso-palpites" value="0" max="6"></progress>
+        </div>
+
         <div id="mapa-previa"></div> 
 
         <section id="interface-jogo">
@@ -29,11 +33,11 @@
                         <th>Palpite</th>
                         <th>Distância</th>
                         <th>Direção</th>
-                        <th>Linhas</th>
+                        <th>Linhas em comum</th>
                     </tr>
                 </thead>
                 <tbody id="grade-palpites">
-                    </tbody>
+                </tbody>
             </table>
 
             <div id="input-area">
