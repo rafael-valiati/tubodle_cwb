@@ -52,6 +52,26 @@ main {
     box-sizing: border-box;
 }
 
+#game-status {
+    /* O texto já está definido como #e0e0e0 (branco suave) no modo escuro */
+    color: #e0e0e0; 
+    
+    /* AUMENTO DA FONTE: Use unidades relativas como 'em' ou 'vw' para que ajuste 
+       um pouco em telas menores, mas 'px' fixo é simples e eficaz. */
+    font-size: 28px; /* Valor inicial bom para destaque */
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0; /* Margem superior e inferior para isolar o texto */
+    padding: 10px;
+}
+
+/* Se quiser aumentar ainda mais em telas grandes, use um media query: */
+@media (min-width: 600px) {
+    #game-status {
+        font-size: 36px; /* Aumenta para telas de desktop/tablet */
+    }
+}
+
 /* MAPA */
 #mapa-previa {
     /* Define o mapa para ocupar uma parte significativa da tela */
