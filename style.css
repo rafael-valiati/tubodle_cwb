@@ -3,7 +3,8 @@
 /* 1. RESET BÁSICO E CONFIGURAÇÃO GERAL */
 /* -------------------------------------- */
 body {
-    font-family: 'Arial', sans-serif;
+    /* MUDANÇA: ROBOTO como fonte principal */
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     color: #e0e0e0; /* Cor do texto no modo escuro */
@@ -11,6 +12,10 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* NOVO: Garante o Roboto para fallback (o import será feito no HTML) */
+    font-family: 'Roboto', sans-serif; 
+    /* AUMENTO DA FONTE BASE */
+    font-size: 17px; 
 }
 
 /* -------------------------------------- */
@@ -43,43 +48,48 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* NOVO: Centraliza o título no cabeçalho */
+header h1 {
+    font-size: 2.5em; /* Aumenta um pouco o título */
+    font-weight: 700;
+}
+
 main {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* CENTRALIZA ITENS NA HORIZONTAL */
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    flex-grow: 1; /* Permite que o main ocupe o espaço restante */
 }
 
 #game-status {
-    /* O texto já está definido como #e0e0e0 (branco suave) no modo escuro */
     color: #e0e0e0; 
     
-    /* AUMENTO DA FONTE: Use unidades relativas como 'em' ou 'vw' para que ajuste 
-       um pouco em telas menores, mas 'px' fixo é simples e eficaz. */
-    font-size: 28px; /* Valor inicial bom para destaque */
+    /* AUMENTADO: de 28px para 32px */
+    font-size: 32px; 
     font-weight: bold;
     text-align: center;
-    margin: 20px 0; /* Margem superior e inferior para isolar o texto */
+    margin: 20px 0;
     padding: 10px;
 }
 
-/* Se quiser aumentar ainda mais em telas grandes, use um media query: */
+/* Aumenta ainda mais em telas grandes */
 @media (min-width: 600px) {
     #game-status {
-        font-size: 36px; /* Aumenta para telas de desktop/tablet */
+        font-size: 40px; /* Aumenta para telas de desktop/tablet */
     }
 }
 
 /* MAPA */
 #mapa-previa {
-    /* Define o mapa para ocupar uma parte significativa da tela */
-    width: 95%; /* 95% da largura da tela */
-    height: 50vh; /* 50% da altura da tela (ajusta-se automaticamente) */
-    max-width: 800px; /* Limite em telas grandes */
+    width: 95%; 
+    height: 50vh; 
+    max-width: 800px;
+    /* MANTIDO: BORDER RADIUS */
     border-radius: 12px;
-    overflow: hidden; /* Garante que o Leaflet não vaze */
+    overflow: hidden; 
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
@@ -90,6 +100,7 @@ main {
     max-width: 800px;
     background-color: #1f1f1f;
     padding: 20px;
+    /* MANTIDO: BORDER RADIUS */
     border-radius: 12px;
 }
 
@@ -100,38 +111,42 @@ main {
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center; 
 }
 
 #palpite-input {
-    flex-grow: 1; /* Ocupa o máximo de espaço possível */
-    padding: 12px;
+    flex-grow: 1; 
+    max-width: 70%; 
+    padding: 14px;
     border: 2px solid #333;
-    border-radius: 8px;
+    /* MUDANÇA: Aumentado de 8px para 10px */
+    border-radius: 10px; 
     background-color: #2c2c2c;
     color: #e0e0e0;
-    font-size: 16px;
+    font-size: 18px; 
     outline: none;
     transition: border-color 0.2s;
 }
 
 #palpite-input:focus {
-    border-color: #4CAF50; /* Cor de foco verde/destaque */
+    border-color: #4CAF50;
 }
 
 #chutar-btn {
-    padding: 12px 20px;
+    padding: 14px 22px; 
     border: none;
-    border-radius: 8px;
-    background-color: #4CAF50; /* Verde de destaque */
+    /* MUDANÇA: Aumentado de 8px para 10px */
+    border-radius: 10px; 
+    background-color: #4CAF50;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 #chutar-btn:hover {
-    background-color: #45a049; /* Verde mais escuro no hover */
+    background-color: #45a049;
 }
 
 
@@ -140,26 +155,37 @@ main {
 /* -------------------------------------- */
 #tentativas {
     width: 100%;
+    /* NOVO: Cantos arredondados na tabela inteira, mas o overflow:hidden na interface-jogo 
+       ajudará a controlar isso */
+    /* border-radius: 8px; /* Adicionado, mas pode ser escondido pelo container */
+    overflow: hidden; /* Garante que os cantos arredondados da tabela apareçam, se necessário */
+    
     border-collapse: collapse;
     margin-top: 15px;
-    font-size: 18px; /* AUMENTADO: de 15px para 18px */
+    font-size: 20px;
+    text-align: center; 
 }
 
+/* Centraliza o texto nas colunas (especialmente útil para Direção) */
 #tentativas th, 
 #tentativas td {
-    padding: 12px; /* AUMENTADO: de 10px para 12px */
-    text-align: left;
+    padding: 14px 8px; 
+    text-align: center; 
     border-bottom: 1px solid #333; 
-    color: #e0e0e0; /* Garante texto claro em todas as células */
+    color: #e0e0e0; 
 }
 
+/* Cabeçalho */
 #tentativas thead th {
     background-color: #2c2c2c; 
     font-weight: bold;
     color: #4CAF50; 
-    /* Adiciona uma linha inferior mais visível para separar o cabeçalho */
-    border-bottom: 2px solid #4CAF50; 
+    border-bottom: 3px solid #4CAF50; 
     border-top: 1px solid #333;
+    /* Cantos arredondados APENAS no topo do cabeçalho */
+    /* São as extremidades esquerda e direita do cabeçalho */
+    border-top-left-radius: 8px; 
+    border-top-right-radius: 8px;
 }
 
 /* Estilo Zebra para linhas pares */
@@ -169,52 +195,49 @@ main {
 
 /* Linha Vencedora (Palpite Correto) */
 .palpite-correto {
-    background-color: #4CAF50 !important; /* Fundo verde FORÇADO */
-    color: #121212 !important; /* Texto preto para alto contraste */
+    background-color: #4CAF50 !important; 
+    color: #121212 !important; 
     font-weight: bold;
+    /* Cantos arredondados APENAS na base, já que é a última linha */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* -------------------------------------- */
-/* 6. CORES E ÍCONES DE FEEDBACK (Wordle Style) - NOVO BLOCO */
+/* 6. CORES E ÍCONES DE FEEDBACK (Wordle Style) */
 /* -------------------------------------- */
 
 /* --- CORES DE DISTÂNCIA (Distância) --- */
 
-/* Muito Quente (até 500m) - Verde Claro */
 #tentativas td.acerto-quase-la {
     background-color: #66BB6A !important;
-    color: #121212 !important; /* Texto escuro */
+    color: #121212 !important;
 }
 
-/* Quente (até 2 km) - Amarelo */
 #tentativas td.acerto-amarelo {
     background-color: #FFB300 !important;
-    color: #121212 !important; /* Texto escuro */
+    color: #121212 !important;
 }
 
-/* Morno (até 5 km) - Laranja */
 #tentativas td.acerto-laranja {
     background-color: #FB8C00 !important;
-    color: #121212 !important; /* Texto escuro */
+    color: #121212 !important;
 }
 
-/* Frio (mais de 5 km) - Cinza */
 #tentativas td.acerto-cinza {
     background-color: #757575 !important;
-    color: #e0e0e0 !important; /* Texto claro */
+    color: #e0e0e0 !important;
 }
 
 
 /* --- FEEDBACK DE LINHA (Linhas) --- */
 
-/* Linha em Comum - Amarelo/Dourado */
 #tentativas td.acerto-linha {
     background-color: #FDD835 !important;
     color: #121212 !important;
     font-weight: bold;
 }
 
-/* Linha Incomum - Cinza Escuro */
 #tentativas td.erro-linha {
     background-color: #424242 !important;
     color: #e0e0e0 !important;
@@ -223,12 +246,13 @@ main {
 
 /* --- FEEDBACK DE DIREÇÃO (Direção) --- */
 
-/* Direção (Setas) - Apenas cor do texto e ícone */
-/* Como a direção NUNCA é um acerto perfeito, usamos uma cor de destaque neutra */
 #tentativas td.acerto-direcao {
-    color: #4CAF50 !important; /* Verde de destaque para a seta */
+    color: #4CAF50 !important;
     font-weight: bold;
-    font-size: 1.2em;
-    /* Não definimos background-color aqui, pois a seta fica sobre a cor da distância */
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 </style>
