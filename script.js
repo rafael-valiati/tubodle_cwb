@@ -461,40 +461,55 @@ chutarBtn.addEventListener('click', (event) => {
 }
 
 /**
- * Adiciona uma nova linha de palpite na grade do jogo.
+ * Adiciona uma nova linha de palpite na grade do jogo, usando a estrutura de TABELA (<tr> e <td>).
+ * @param {object} jogada - Objeto contendo os dados da jogada (Nome, FeedbackDistancia, etc.).
  */
 function adicionarLinhaNaGrade(jogada) {
     const grade = document.getElementById('grade-palpites');
 
-    const linhaDiv = document.createElement('div');
-    linhaDiv.classList.add('palpite-linha');
+    // 1. CRIA A LINHA DA TABELA (<tr>)
+    const novaLinha = document.createElement('tr');
+    
+    // Opcional: Adiciona a classe de feedback de acerto, se houver
+    if (jogada.Acertou) { 
+        novaLinha.classList.add('palpite-correto');
+    }
 
-    // 1. Estação Chutada
-    const nomeSpan = document.createElement('span');
-    nomeSpan.innerText = jogada.Nome;
-    linhaDiv.appendChild(nomeSpan);
+    // Função auxiliar para criar uma célula (<td>)
+    const criarCelula = (conteudo, classe = null) => {
+        const celula = document.createElement('td');
+        celula.innerText = conteudo;
+        if (classe) {
+            celula.classList.add(classe);
+        }
+        return celula;
+    };
 
-    // 2. Distância
-    const distanciaSpan = document.createElement('span');
-    distanciaSpan.innerText = jogada.FeedbackDistancia.valorExibido;
-    distanciaSpan.classList.add(jogada.FeedbackDistancia.classe);
-    linhaDiv.appendChild(distanciaSpan);
+    // 2. CRIA E ANEXA AS CÉLULAS (<td>) NA ORDEM CORRETA
 
-    // 3. Direção
-    const direcaoSpan = document.createElement('span');
-    direcaoSpan.innerText = jogada.FeedbackDirecao.icone;
-    direcaoSpan.classList.add(jogada.FeedbackDirecao.classe);
-    linhaDiv.appendChild(direcaoSpan);
+    // Célula 1: Palpite (Nome da Estação Chutada)
+    novaLinha.appendChild(criarCelula(jogada.Nome));
 
-    // 4. Linha Comum
-    const linhaSpan = document.createElement('span');
-    linhaSpan.innerText = jogada.FeedbackLinha.valorExibido;
-    linhaSpan.classList.add(jogada.FeedbackLinha.classe);
-    linhaDiv.appendChild(linhaSpan);
+    // Célula 2: Distância
+    novaLinha.appendChild(criarCelula(
+        jogada.FeedbackDistancia.valorExibido, 
+        jogada.FeedbackDistancia.classe
+    ));
 
-    // Insere a nova linha no topo da grade (opcional: ou no final)
-    // Vamos inserir no final da grade, após o cabeçalho.
-    grade.appendChild(linhaDiv);
+    // Célula 3: Direção
+    novaLinha.appendChild(criarCelula(
+        jogada.FeedbackDirecao.icone, 
+        jogada.FeedbackDirecao.classe
+    ));
+
+    // Célula 4: Linha Comum
+    novaLinha.appendChild(criarCelula(
+        jogada.FeedbackLinha.valorExibido,
+        jogada.FeedbackLinha.classe
+    ));
+
+    // 3. Insere a nova linha no topo da tabela (prepend é o padrão do Wordle/Metrodle)
+    grade.prepend(novaLinha);
 }
 
 /**
