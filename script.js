@@ -386,17 +386,21 @@ function configurarInput() {
     const chutarBtn = document.getElementById('chutar-btn');
     
     // 1. Popula o Autocomplete
+    // USAMOS UM SET PARA GARANTIR NOMES ÚNICOS
+    const nomesUnicos = new Set();
     TODAS_ESTACOES.forEach(estacao => {
-        const option = document.createElement('option');
-        option.value = estacao.Nome;
-        dataList.appendChild(option);
+        // Adiciona apenas o campo 'Nome' (que é o limpo e padronizado)
+        nomesUnicos.add(estacao.Nome); 
     });
-
-    // 2. Configura o botão "Chutar"
-    chutarBtn.addEventListener('click', () => {
-        const nomePalpite = input.value;
-        processarPalpite(nomePalpite);
-        input.value = ''; // Limpa o input
+    
+    // Remove quaisquer opções antigas no datalist (boa prática)
+    dataList.innerHTML = ''; 
+    
+    // 2. Adiciona APENAS a lista de nomes únicos ao datalist
+    nomesUnicos.forEach(nome => {
+        const option = document.createElement('option');
+        option.value = nome;
+        dataList.appendChild(option);
     });
     
     // 3. Permite chutar com a tecla ENTER
