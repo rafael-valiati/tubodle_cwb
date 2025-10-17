@@ -1,305 +1,161 @@
-/* -------------------------------------- */
-/* 1. RESET BÁSICO E CONFIGURAÇÃO GERAL */
-/* -------------------------------------- */
-body {
-    font-family: 'Roboto', sans-serif !important; 
-    margin: 0;
-    padding: 0;
-    color: #e0e0e0; /* Cor do texto no modo escuro */
-    transition: background-color 0.3s;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-size: 17px; 
-}
-
-* {
-    font-family: 'Roboto', sans-serif !important;
-}
+/* style.css (Modificações) */
 
 /* -------------------------------------- */
-/* 2. MODO ESCURO (TEMA) */
+/* 2. MODO ESCURO (TEMA) - NOVO ESTILO PARA INPUTS/BOTÕES */
 /* -------------------------------------- */
-.dark-mode {
-    background-color: #121212; /* Fundo escuro */
+
+/* Adicionei o estilo para o botão 'i' */
+.info-button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular */
+    width: 38px;
+    height: 38px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: absolute; /* Posição absoluta em relação ao header */
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.dark-mode body,
-.dark-mode h1,
-.dark-mode #game-status {
-    color: #e0e0e0 !important; /* Branco suave para legibilidade */
+.info-button:hover {
+    background-color: #45a049;
 }
 
-.dark-mode header,
-.dark-mode #interface-jogo {
-    background-color: #1f1f1f; /* Elementos mais claros que o fundo */
-    border-color: #333;
-}
-
-/* -------------------------------------- */
-/* 3. ESTRUTURA E RESPONSIVIDADE */
-/* -------------------------------------- */
+/* Ajuste no header para permitir posicionamento do botão 'i' */
 header {
+    position: relative; /* Pai para o botão absoluto */
     text-align: center;
     padding: 15px 0;
     background-color: #1f1f1f;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-header h1 {
-    font-family: 'Roboto', sans-serif !important; 
-    font-size: 2.5em; /* Aumenta um pouco o título */
-    font-weight: 700;
-}
+/* -------------------------------------- */
+/* 3. ESTRUTURA E RESPONSIVIDADE */
+/* -------------------------------------- */
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* CENTRALIZA ITENS NA HORIZONTAL */
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    flex-grow: 1; /* Permite que o main ocupe o espaço restante */
-}
-
-#game-status {
-    color: #e0e0e0; 
-    font-size: 32px; 
-    font-weight: bold;
-    text-align: center;
-    margin: 20px 0 10px 0; /* Diminui a margem inferior para a barra de progresso */
-    padding: 10px;
-}
-
-@media (min-width: 600px) {
-    #game-status {
-        font-size: 40px;
-    }
-}
-
-/* NOVO: Estilos para a Barra de Progresso */
+/* Modificação para o Contêiner da Barra de Progresso (Ajuste para garantir alinhamento) */
 #progresso-container {
     width: 95%;
     max-width: 800px;
     display: flex;
-    align-items: center;
-    gap: 15px; /* Espaço entre o texto e a barra */
+    align-items: center; /* Garante que o texto e a barra estejam na mesma linha vertical */
+    gap: 15px;
     margin-bottom: 20px;
 }
 
-#progresso-texto {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #e0e0e0;
-}
+/* Modificação para visualização horizontal/telas maiores (Ponto 2) */
+@media (min-width: 800px) and (orientation: landscape) {
+    main {
+        flex-direction: row; /* Coloca o mapa e a interface lado a lado */
+        justify-content: center;
+        align-items: flex-start; /* Alinha o conteúdo no topo */
+        gap: 30px;
+    }
 
-#progresso-palpites {
-    width: 100%;
-    height: 15px;
-    -webkit-appearance: none;
-    appearance: none;
-    border: 1px solid #444;
-    border-radius: 10px;
-    overflow: hidden; /* Garante que o preenchimento fique dentro das bordas arredondadas */
-}
-
-/* Cor de fundo da barra (Chrome/Safari) */
-#progresso-palpites::-webkit-progress-bar {
-    background-color: #2c2c2c;
-}
-
-/* Cor do preenchimento da barra (Chrome/Safari) */
-#progresso-palpites::-webkit-progress-value {
-    background-color: #4CAF50;
-    transition: width 0.3s ease;
-}
-
-/* Cor do preenchimento da barra (Firefox) */
-#progresso-palpites::-moz-progress-bar {
-    background-color: #4CAF50;
-}
-
-
-/* MAPA */
-#mapa-previa {
-    width: 95%; 
-    height: 50vh; 
-    max-width: 800px;
-    border-radius: 12px;
-    overflow: hidden; 
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-}
-
-/* INTERFACE GERAL (tabela + input) */
-#interface-jogo {
-    width: 95%;
-    max-width: 800px;
-    background-color: #1f1f1f;
-    padding: 20px;
-    border-radius: 12px;
+    #mapa-previa {
+        width: 45%;
+        height: 80vh; /* Aumenta a altura para aproveitar o espaço vertical */
+        max-width: none;
+    }
+    
+    #progresso-container,
+    #interface-jogo {
+        width: 45%;
+        max-width: none;
+    }
+    
+    #interface-jogo {
+        padding: 15px; /* Ajusta o padding */
+    }
 }
 
 /* -------------------------------------- */
-/* 4. INPUT E BOTÃO */
+/* 5. TABELA DE TENTATIVAS */
 /* -------------------------------------- */
-#input-area {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    justify-content: center; 
-}
 
-#palpite-input {
-    flex-grow: 1; 
-    max-width: 70%; 
-    padding: 14px;
-    border: 2px solid #333;
-    border-radius: 10px; 
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    font-size: 18px; 
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-#palpite-input:focus {
-    border-color: #4CAF50;
-}
-
-#chutar-btn {
-    padding: 14px 22px; 
-    border: none;
-    border-radius: 10px; 
-    background-color: #4CAF50;
-    color: white;
-    font-size: 18px;
+/* NOVO: Estilo para linha de DERROTA (Ponto 4) */
+.palpite-derrota td {
+    background-color: #c0392b !important; /* Vermelho/Borgonha */
+    color: white !important;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
-
-#chutar-btn:hover {
-    background-color: #45a049;
-}
-
-
-/* -------------------------------------- */
-/* 5. TABELA DE TENTATIVAS (MODO ESCURO) */
-/* -------------------------------------- */
-#tentativas {
-    width: 100%;
-    overflow: hidden;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size: 20px;
-    text-align: center; 
-}
-
-#tentativas th, 
-#tentativas td {
-    padding: 14px 8px; 
-    text-align: center; 
-    border-bottom: 1px solid #333; 
-    color: #e0e0e0; 
-    vertical-align: middle; /* Alinha o conteúdo verticalmente */
-}
-
-/* Cabeçalho */
-#tentativas thead th {
-    background-color: #2c2c2c; 
-    font-weight: bold;
-    color: #4CAF50; 
-    border-bottom: 3px solid #4CAF50; 
-    border-top: 1px solid #333;
-    border-top-left-radius: 8px; 
-    border-top-right-radius: 8px;
-}
-
-/* Estilo Zebra para linhas pares */
-#tentativas tbody tr:nth-child(even) {
-    background-color: #242424;
-}
-
-/* Linha Vencedora (Palpite Correto) */
-.palpite-correto {
-    background-color: #4CAF50 !important; 
-    color: #121212 !important; 
-    font-weight: bold;
+.palpite-derrota {
+    /* Garante que o último palpite não perca a borda arredondada */
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
 
 /* -------------------------------------- */
-/* 6. CORES E ÍCONES DE FEEDBACK (NOVOS!) */
+/* 7. MODAL DE INFORMAÇÕES (NOVO) */
 /* -------------------------------------- */
-
-/* --- CORES DE DISTÂNCIA (Distância) --- */
-#tentativas td.distancia-azul {
-    background-color: #2196F3 !important; /* AZUL para acerto exato */
-    color: #121212 !important;
-}
-#tentativas td.distancia-verde {
-    background-color: #66BB6A !important; /* VERDE para < 0.5 km */
-    color: #121212 !important;
-}
-#tentativas td.distancia-amarelo {
-    background-color: #FFB300 !important; /* AMARELO para 0.5-2 km */
-    color: #121212 !important;
-}
-#tentativas td.distancia-laranja {
-    background-color: #FB8C00 !important; /* LARANJA para 2-5 km */
-    color: #121212 !important;
-}
-#tentativas td.distancia-cinza {
-    background-color: #757575 !important; /* CINZA para > 5 km */
-    color: #e0e0e0 !important;
-}
-
-
-/* --- FEEDBACK DE LINHA (Linhas em comum) --- */
-#tentativas td.linha-total {
-    background-color: #4CAF50 !important; /* VERDE para todas as linhas em comum */
-    color: #121212 !important;
-    font-weight: bold;
-}
-#tentativas td.linha-parcial {
-    background-color: #FDD835 !important; /* AMARELO para alguma linha em comum */
-    color: #121212 !important;
-}
-#tentativas td.linha-nenhuma {
-    background-color: #424242 !important; /* CINZA para nenhuma linha em comum */
-    color: #e0e0e0 !important;
-}
-
-
-/* --- FEEDBACK DE DIREÇÃO (Direção) --- */
-#tentativas td.feedback-direcao {
-    font-weight: bold;
-    font-size: 1.2em; /* Tamanho base */
-    line-height: 1.1; /* Melhora o alinhamento vertical */
-}
-/* Estilo para o contêiner de ícone e texto */
-.direcao-container {
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 4px; /* Espaço entre o ícone e o texto */
+    align-items: center;
+    z-index: 1000;
 }
-/* Estilo específico para o ícone de seta */
-.direcao-icone {
-    font-size: 1.5em; /* Deixa o ícone maior que o texto */
+
+#modal-content {
+    background-color: #1f1f1f;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 90%;
+    width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#modal-content h2 {
+    color: #4CAF50;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+#modal-content p, #modal-content li {
+    line-height: 1.5;
     color: #e0e0e0;
 }
-/* Estilo para o texto da direção (Norte, Sul...) */
-.direcao-texto {
-    font-size: 0.7em; /* Texto menor */
-    font-weight: normal;
-    text-transform: uppercase;
-    color: #bdbdbd;
+
+#modal-content strong {
+    color: #4CAF50;
 }
-/* Célula de direção na linha de vitória */
-#tentativas td.feedback-vitoria {
-    font-size: 2.5em; /* Emoji de fogos de artifício bem grande */
+
+#modal-content ul {
+    padding-left: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 2em;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: #4CAF50;
+}
+
+.hidden {
+    display: none !important;
 }
