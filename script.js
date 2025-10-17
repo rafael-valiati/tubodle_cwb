@@ -373,6 +373,7 @@ function configurarInput() {
     const dataList = document.getElementById('estacoes-lista');
     const input = document.getElementById('palpite-input');
     const chutarBtn = document.getElementById('chutar-btn');
+    const sugestoesContainer = document.getElementById('sugestoes-container');
 
     if (!chutarBtn) {
         console.error("ERRO GRAVE: Botão 'chutar-btn' não encontrado.");
