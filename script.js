@@ -285,18 +285,26 @@ function gerarFeedbackLinha(palpite, secreta) {
         classe = 'linha-nenhuma';
         valorExibido = 'Nenhuma';
     } else {
-        const temLigeirinhoComum = linhasEmComum.some(cod => !MAPA_LINHAS.hasOwnProperty(cod));
-        
-        if (temLigeirinhoComum) {
-            valorExibido = 'Algum Ligeirinho';
-        } else {
-            valorExibido = linhasEmComum.map(cod => MAPA_LINHAS[cod]).join(', ');
-        }
-        
-        // Verifica se é acerto total ou parcial
-        if (palpiteLinhas.size === secretaLinhas.size && linhasEmComum.length === secretaLinhas.size) {
+        // Verifica se é acerto total
+        const isMatchTotal = palpiteLinhas.size === secretaLinhas.size && linhasEmComum.length === secretaLinhas.size;
+
+        if (isMatchTotal) {
+            // =======================================================
+            // ALTERAÇÃO AQUI: Acerto total exibe "Todas as linhas"
+            // =======================================================
             classe = 'linha-total'; // Todas as linhas batem
+            valorExibido = 'Todas as linhas'; 
+
         } else {
+            // Lógica para acerto parcial (original)
+            const temLigeirinhoComum = linhasEmComum.some(cod => !MAPA_LINHAS.hasOwnProperty(cod));
+            
+            if (temLigeirinhoComum) {
+                valorExibido = 'Algum Ligeirinho';
+            } else {
+                valorExibido = linhasEmComum.map(cod => MAPA_LINHAS[cod]).join(', ');
+            }
+            
             classe = 'linha-parcial'; // Apenas algumas linhas batem
         }
     }
