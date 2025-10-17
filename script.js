@@ -380,11 +380,51 @@ function configurarInput() {
     }
     
     const nomesUnicos = new Set(TODAS_ESTACOES.map(est => est.Nome));
-    dataList.innerHTML = ''; 
-    nomesUnicos.forEach(nome => {
-        const option = document.createElement('option');
-        option.value = nome;
-        dataList.appendChild(option);
+
+    // ===============================================
+    // LÓGICA DE AUTOPREENCHIMENTO CUSTOMIZADA
+    // ===============================================
+
+    input.addEventListener('input', () => {
+        const textoDigitado = input.value.trim().toLowerCase();
+        sugestoesContainer.innerHTML = ''; // Limpa a lista anterior
+
+        // CONDIÇÃO CHAVE: Só exibe sugestões se houver 1 ou mais caracteres
+        if (textoDigitado.length > 0) {
+            
+            // Filtra as sugestões que incluem o texto digitado
+            const sugestoesFiltradas = nomesUnicos.filter(nome => 
+                nome.toLowerCase().includes(textoDigitado)
+            );
+
+            sugestoesFiltradas.slice(0, 10).forEach(nome => { // Limita a 10 sugestões para performance
+                const item = document.createElement('div');
+                item.classList.add('sugestao-item');
+                item.innerText = nome;
+
+                // Ao clicar na sugestão
+                item.addEventListener('click', () => {
+                    input.value = nome;
+                    sugestoesContainer.innerHTML = ''; // Oculta a lista
+                    // Opcional: foca no botão de chutar ou submete
+                    input.focus(); 
+                });
+
+                sugestoesContainer.appendChild(item);
+            });
+
+        } else {
+            // Se o input estiver vazio, garante que a lista está vazia/oculta
+            sugestoesContainer.innerHTML = '';
+        }
+    });
+
+    // Ocultar a lista de sugestões quando o usuário clica em outro lugar
+    document.addEventListener('click', (e) => {
+        // Verifica se o clique não foi no input E não foi dentro do container de sugestões
+        if (e.target !== input && !sugestoesContainer.contains(e.target)) {
+            sugestoesContainer.innerHTML = '';
+        }
     });
     
     const submeterPalpite = () => {
