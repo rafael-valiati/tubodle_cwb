@@ -380,7 +380,7 @@ function configurarInput() {
         return; 
     }
     
-    const nomesUnicos = new Set(TODAS_ESTACOES.map(est => est.Nome));
+    const nomesUnicos = [...new Set(TODAS_ESTACOES.map(est => est.Nome))].sort();
 
     // ===============================================
     // LÓGICA DE AUTOPREENCHIMENTO CUSTOMIZADA
