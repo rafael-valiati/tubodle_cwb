@@ -446,7 +446,7 @@ function mostrarFimDeJogo(venceu) {
     });
 
     marcadorSecreto = L.circleMarker([ESTACAO_SECRETA.Latitude, ESTACAO_SECRETA.Longitude], {
-        radius: 10,
+        radius: 15,
         color: venceu ? '#4CAF50' : '#e74c3c',
         fillColor: venceu ? '#4CAF50' : '#e74c3c',
         fillOpacity: 1
