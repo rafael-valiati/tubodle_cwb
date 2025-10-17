@@ -81,24 +81,59 @@ const MAPA_LINHAS = {
     '022/023': 'Inter 2'
 };
 
+// --- 1. FUNÇÃO PRNG SIMPLES (NÃO MUDAR) ---
 /**
- * Seleciona a estação secreta do dia usando a data como semente.
+ * Gera um número pseudo-aleatório entre 0 (inclusive) e 1 (exclusivo)
+ * a partir de uma semente (seed) de entrada.
+ * Fonte: Baseado em geradores PRNG simples.
+ * @param {number} seed - O número inteiro que representa a semente (sua data).
+ * @returns {number} Um número pseudo-aleatório entre 0 e 1.
  */
+function seededRandom(seed) {
+    // Usamos o módulo para garantir que o seed se ajuste bem ao cálculo.
+    // Usar um primo grande ajuda a espalhar a distribuição.
+    const m = 0x80000000; // 2^31
+    const a = 1103515245;
+    const c = 12345;
+    
+    // Atualiza o estado interno, mas no nosso caso, é o seed da função.
+    // O JS usa 'bit-wise operations' para forçar o resultado a ser um inteiro de 32 bits,
+    // o que é bom para a consistência do PRNG.
+    seed = (a * seed + c) % m; 
+    
+    // Retorna o novo número normalizado entre 0 e 1.
+    return seed / m;
+}
+
+// --- 2. FUNÇÃO ORIGINAL ATUALIZADA ---
 function selecionarEstacaoSecreta() {
     let poolDeSelecao = [];
     TODAS_ESTACOES.forEach(estacao => {
+        // A lógica de peso permanece a mesma
         const peso = 5 - estacao.Prioridade;
         for (let i = 0; i < peso; i++) {
             poolDeSelecao.push(estacao);
         }
     });
 
+    const tamanhoPool = poolDeSelecao.length;
+    
+    // 1. Geração da Semente Diária (É fixa e sequencial, como antes)
     const hoje = new Date();
     const semente = hoje.getFullYear() * 10000 + (hoje.getMonth() + 1) * 100 + hoje.getDate();
-    const indiceFixo = semente % poolDeSelecao.length;
+    
+    // 2. USO DO PRNG: Transforma a SEMENTE sequencial em um número pseudo-aleatório
+    // Ex: 20251017 -> 0.7324...
+    //     20251018 -> 0.1987... (totalmente diferente)
+    const numeroPseudoAleatorio = seededRandom(semente);
+
+    // 3. Calcula o Índice "Aleatório" (mas fixo para o dia)
+    // Multiplica o número [0, 1) pelo tamanho do pool para ter um número [0, tamanhoPool)
+    const indiceFixo = Math.floor(numeroPseudoAleatorio * tamanhoPool); 
+    
     ESTACAO_SECRETA = poolDeSelecao[indiceFixo];
 
-    console.log(`Estação Secreta de Hoje: ${ESTACAO_SECRETA.Nome}`);
+    console.log(`Estação Secreta de Hoje (Semente: ${semente}): ${ESTACAO_SECRETA.Nome}`);
 }
 
 // =======================================================
