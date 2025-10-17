@@ -16,30 +16,31 @@
         <div class="titulo-container">
             <h1>Tubodle</h1>
         </div>
-        
     </header>
     
     <main>
         <!-- 1. STATUS DO JOGO (Topo) -->
         <div class="status-e-info-container">
             <div id="game-status">Carregando dados...</div> 
-            <!-- Botão de Informações/Regras -->
-            <button id="info-btn" class="info-button">i</button>
+            <!-- Botões de topo: Informações e Estatísticas -->
+            <div class="top-buttons">
+                <button id="info-btn" class="info-button">i</button>
+                <button id="btn-estatisticas" class="estatisticas-button">📊</button>
+            </div>
         </div>
+
         <!-- 2. MAPA -->
         <div id="mapa-previa"></div> 
 
-        <!-- NOVO CONTAINER: Agrupa Progresso e Palpites.
-             No mobile, ele simplesmente continua o empilhamento.
-             No desktop, ele se torna a coluna da direita. -->
+        <!-- 3. COLUNA DE PROGRESSO E PALPITES -->
         <div class="game-data-column"> 
-            <!-- 3. BARRA DE PROGRESSO -->
+            <!-- Barra de progresso -->
             <div id="progresso-container">
                 <span id="progresso-texto">0 / 6</span>
                 <progress id="progresso-palpites" value="0" max="6"></progress>
             </div>
 
-            <!-- 4. INTERFACE DE PALPITES -->
+            <!-- Interface de palpites -->
             <section id="interface-jogo">
                 <table id="tentativas">
                     <thead>
@@ -50,8 +51,7 @@
                             <th>Linhas em comum</th>
                         </tr>
                     </thead>
-                    <tbody id="grade-palpites">
-                    </tbody>
+                    <tbody id="grade-palpites"></tbody>
                 </table>
 
                 <div id="input-area">
@@ -60,11 +60,10 @@
                     <button id="chutar-btn" type="button">Chutar</button>
                 </div>
             </section>
-
-            <button id="btn-estatisticas" class="estatisticas-button">Estatísticas</button>
         </div>
     </main>
 
+    <!-- MODAL DE INFORMAÇÕES -->
     <div id="modal-overlay" class="hidden">
         <div id="modal-content">
             <button id="close-modal-btn" class="close-button">&times;</button>
@@ -83,13 +82,10 @@
     <!-- MODAL DE ESTATÍSTICAS -->
     <div id="modal-estatisticas" class="hidden">
         <div id="conteudo-estatisticas">
-            <button id="close-estatisticas-btn" class="close-button">&times;</button>
+            <button id="close-estatisticas" class="close-button">&times;</button>
             <h2>Estatísticas</h2>
-            <p>Estatísticas</p>
-            <ul>
-                <li>Palpites feitos: 0</li>
-                <li>Acertos: 0</li>
-                <li>Distância média: 0 km</li>
+            <ul id="lista-estatisticas">
+                <!-- Conteúdo preenchido via JS -->
             </ul>
         </div>
     </div>
