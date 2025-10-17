@@ -250,8 +250,8 @@ main {
     top: 100%; /* Posiciona logo abaixo do input */
     left: 0;
     /* Ajuste de largura para que ele se alinhe com o input dentro do flex container */
-    width: 70%; 
-    max-width: 70%; /* Deve corresponder ao max-width do palpite-input */
+    width: 100%; 
+    max-width: none; /* Deve corresponder ao max-width do palpite-input */
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #333;
