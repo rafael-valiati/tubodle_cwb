@@ -47,6 +47,7 @@ async function carregarDados() {
         // 4. Inicializa o Jogo
         selecionarEstacaoSecreta(); 
         inicializarMapaPrevia(); 
+        configurarBotoesModal(); // NOVO: Configura o modal de regras
         
         document.getElementById('game-status').innerText = "Que estação-tubo de Curitiba é essa?";
         atualizarBarraProgresso(); // NOVO: Inicia a barra de progresso em 0
@@ -169,7 +170,9 @@ function processarPalpite(nomePalpite) {
         Acertou: acertou,
         FeedbackDistancia: feedbackDistancia,
         FeedbackDirecao: feedbackDirecao,
-        FeedbackLinha: feedbackLinha
+        FeedbackLinha: feedbackLinha,
+        // NOVO: Adiciona a flag se foi a última jogada
+        UltimaJogada: JOGADAS_FEITAS.length + 1 === MAX_TENTATIVAS
     };
     JOGADAS_FEITAS.push(jogada);
 
@@ -277,12 +280,14 @@ function inicializarMapaPrevia() {
     const lat = ESTACAO_SECRETA.Latitude;
     const lon = ESTACAO_SECRETA.Longitude;
     
+    // Zoom aumentado para 17 (era 16).
     mapa = L.map('mapa-previa', {
-        zoomControl: false, dragging: false, minZoom: 16, maxZoom: 16,
+        zoomControl: false, dragging: false, minZoom: 17, maxZoom: 17,
         scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
         keyboard: false, touchZoom: false
-    }).setView([lat, lon], 16);
+    }).setView([lat, lon], 17); // View setada em zoom 17
 
+    // TileLayer: 'light_nolabels' (sem ruas/nomes) para telas maiores (Ponto 2)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
         attribution: '©OpenStreetMap, ©CartoDB',
         maxZoom: 19
@@ -291,6 +296,34 @@ function inicializarMapaPrevia() {
     L.circleMarker([lat, lon], { radius: 8, color: '#555', fillColor: '#555', fillOpacity: 1 }).addTo(mapa);
     mapa.invalidateSize(); 
     configurarInput();
+}
+
+/**
+ * NOVO (Ponto 3): Configura a abertura e fechamento do Modal de Regras.
+ */
+function configurarBotoesModal() {
+    const infoBtn = document.getElementById('info-btn');
+    const fecharBtn = document.getElementById('close-modal-btn');
+    const modal = document.getElementById('modal-overlay');
+
+    if (infoBtn && fecharBtn && modal) {
+        infoBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        fecharBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+        
+        // Fechar se clicar fora do modal
+        modal.addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') {
+                modal.classList.add('hidden');
+            }
+        });
+    } else {
+        console.error("Um ou mais elementos do modal (botões ou overlay) não foram encontrados.");
+    }
 }
 
 function configurarInput() {
@@ -334,14 +367,24 @@ function configurarInput() {
  * ATUALIZADO: Renderiza a célula de direção com ícone e texto.
  * Adiciona uma nova linha de palpite na grade do jogo.
  */
+/**
+ * ATUALIZADO (Ponto 4): Adiciona classe 'palpite-derrota' no 6º palpite errado.
+ * Adiciona uma nova linha de palpite na grade do jogo.
+ */
 function adicionarLinhaNaGrade(jogada) {
     const grade = document.getElementById('grade-palpites');
     const novaLinha = document.createElement('tr');
     
     if (jogada.Acertou) { 
         novaLinha.classList.add('palpite-correto');
+    } 
+    // NOVO: Adiciona classe de derrota se for o último palpite e estiver errado
+    else if (jogada.UltimaJogada && !jogada.Acertou) {
+        novaLinha.classList.add('palpite-derrota');
     }
 
+    // ... (O resto da lógica para criar as células da tabela permanece igual)
+    
     // Célula 1: Palpite
     const celulaPalpite = document.createElement('td');
     celulaPalpite.innerText = jogada.Nome;
@@ -353,7 +396,7 @@ function adicionarLinhaNaGrade(jogada) {
     celulaDistancia.className = jogada.FeedbackDistancia.classe;
     novaLinha.appendChild(celulaDistancia);
 
-    // Célula 3: Direção (Lógica nova)
+    // Célula 3: Direção
     const celulaDirecao = document.createElement('td');
     celulaDirecao.className = jogada.FeedbackDirecao.classe;
     if (jogada.Acertou) {
