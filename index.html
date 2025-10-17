@@ -14,44 +14,51 @@
     
     <header>
         <div class="titulo-container">
-             <h1>Tubodle</h1>
+            <h1>Tubodle</h1>
         </div>
-       
+        
         <button id="info-btn" class="info-button">i</button>
     </header>
     
     <main>
-    <div id="game-status">Carregando dados...</div> 
+        <!-- 1. STATUS DO JOGO (Topo) -->
+        <div id="game-status">Carregando dados...</div> 
 
-    <div id="mapa-previa"></div> 
+        <!-- 2. MAPA -->
+        <div id="mapa-previa"></div> 
 
-    <div class="game-interface-container"> 
-        <div id="progresso-container">
-            <span id="progresso-texto">0 / 6</span>
-            <progress id="progresso-palpites" value="0" max="6"></progress>
-        </div>
-
-        <section id="interface-jogo">
-            <table id="tentativas">
-                <thead>
-                    <tr>
-                        <th>Palpite</th>
-                        <th>Distância</th>
-                        <th>Direção</th>
-                        <th>Linhas em comum</th>
-                    </tr>
-                </thead>
-                <tbody id="grade-palpites">
-                </tbody>
-            </table>
-
-            <div id="input-area">
-                <input type="text" id="palpite-input" list="estacoes-lista" placeholder="Digite o nome da estação...">
-                <datalist id="estacoes-lista"></datalist>
-                <button id="chutar-btn" type="button">Chutar</button>
+        <!-- NOVO CONTAINER: Agrupa Progresso e Palpites.
+             No mobile, ele simplesmente continua o empilhamento.
+             No desktop, ele se torna a coluna da direita. -->
+        <div class="game-data-column"> 
+            <!-- 3. BARRA DE PROGRESSO -->
+            <div id="progresso-container">
+                <span id="progresso-texto">0 / 6</span>
+                <progress id="progresso-palpites" value="0" max="6"></progress>
             </div>
-        </section>
-    </div>
+
+            <!-- 4. INTERFACE DE PALPITES -->
+            <section id="interface-jogo">
+                <table id="tentativas">
+                    <thead>
+                        <tr>
+                            <th>Palpite</th>
+                            <th>Distância</th>
+                            <th>Direção</th>
+                            <th>Linhas em comum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grade-palpites">
+                    </tbody>
+                </table>
+
+                <div id="input-area">
+                    <input type="text" id="palpite-input" list="estacoes-lista" placeholder="Digite o nome da estação...">
+                    <datalist id="estacoes-lista"></datalist>
+                    <button id="chutar-btn" type="button">Chutar</button>
+                </div>
+            </section>
+        </div>
     </main>
 
     <div id="modal-overlay" class="hidden">
