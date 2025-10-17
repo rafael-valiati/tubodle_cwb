@@ -75,12 +75,12 @@ header h1 {
 /* 3. ESTRUTURA E RESPONSIVIDADE (MOBILE FIRST) */
 /* -------------------------------------- */
 main {
-    /* GARANTIA: Layout sempre empilhado verticalmente em telas menores */
+    /* Mobile: Layout empilhado verticalmente (Padrão) */
     display: flex;
     flex-direction: column; 
     align-items: center; 
     width: 100%;
-    padding: 20px 10px; /* Ajuste para mobile */
+    padding: 20px 10px;
     box-sizing: border-box;
     flex-grow: 1;
 }
@@ -89,11 +89,11 @@ main {
     color: #e0e0e0; 
     font-size: 32px; 
     font-weight: bold;
-    text-align: center;
+    text-align: center; /* Centralizado no mobile */
     margin: 20px 0 10px 0; 
     padding: 0 10px;
     width: 100%;
-    max-width: 800px; /* Limita a largura em telas maiores */
+    max-width: 800px;
 }
 
 /* MAPA */
@@ -107,17 +107,17 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* NOVO CONTAINER: Agrupa Progresso e Interface. No mobile, empilha. */
+/* Container de dados (Progresso + Interface) */
 .game-data-column { 
     display: flex;
-    flex-direction: column; /* Empilhamento garantido dentro da coluna */
+    flex-direction: column;
     width: 100%;
     max-width: 800px;
 }
 
-/* Barra de Progresso */
+/* Barra de Progresso e Interface de Palpites */
 #progresso-container {
-    width: 100%; /* Usa a largura total do .game-data-column */
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 20px; 
@@ -129,7 +129,7 @@ main {
     font-size: 1.2em;
     font-weight: bold;
     color: #e0e0e0;
-    white-space: nowrap; /* Correção para o "0 / 6" não quebrar */
+    white-space: nowrap; 
     flex-shrink: 0; 
 }
 
@@ -156,9 +156,8 @@ main {
     background-color: #4CAF50;
 }
 
-/* INTERFACE GERAL (tabela + input) */
 #interface-jogo {
-    width: 100%; /* Usa a largura total do .game-data-column */
+    width: 100%;
     background-color: #1f1f1f;
     padding: 20px;
     border-radius: 12px;
@@ -168,42 +167,41 @@ main {
 /* --- RESPONSIVIDADE PARA TELAS GRANDES/HORIZONTAIS (Desktop) --- */
 @media (min-width: 900px) and (orientation: landscape) {
     main {
-        flex-direction: row; /* Coloca Mapa e Coluna de Dados Lado a Lado */
-        justify-content: center;
-        align-items: flex-start;
-        gap: 25px;
-        max-width: 1300px;
+        /* CORREÇÃO: Força o empilhamento vertical (coluna única) em telas grandes */
+        flex-direction: column; 
+        justify-content: flex-start; 
+        align-items: center; 
+        
+        /* Aumenta a largura máxima para usar o espaço horizontal */
+        max-width: 1000px; 
         margin: 0 auto;
         padding-top: 30px;
-        flex-wrap: wrap; /* Permite que o #game-status fique em cima de tudo */
     }
     
     #game-status {
-        /* Garante que o status ocupe a largura total no topo */
+        /* Ocupa a largura total da coluna centralizada */
         width: 100%; 
-        max-width: 1300px; 
+        max-width: 1000px;
         margin-bottom: 30px;
+        text-align: left; 
+        padding: 0 10px; 
     }
 
-    /* Mapa fica à esquerda, ocupando cerca de metade */
+    /* Mapa (Agora na largura total da coluna central) */
     #mapa-previa {
-        width: 45%; 
-        height: 75vh; /* Aumentado para telas horizontais */
-        max-width: 600px; 
-        margin-bottom: 0; 
+        width: 100%; 
+        height: 70vh; /* Aumenta a altura para aproveitar o espaço vertical */
+        max-width: 1000px; 
+        margin-bottom: 25px; 
     }
 
-    /* Coluna de Dados (Progresso + Palpites) fica à direita, ocupando cerca de metade */
+    /* Container de Dados (Agora na largura total da coluna central) */
     .game-data-column {
-        width: 45%; 
-        max-width: 600px; 
+        width: 100%; 
+        max-width: 1000px; 
     }
-
-    /* Garante que os elementos internos usem a largura total da coluna */
-    #progresso-container,
-    #interface-jogo {
-        max-width: none;
-    }
+    
+    /* As regras de progresso e interface já ocupam 100% da coluna */
 }
 
 
@@ -251,7 +249,7 @@ main {
 }
 
 .chutar-btn-style {
-    margin-top: 15px; /* Estilo para o botão "Recarregar" */
+    margin-top: 15px; 
 }
 
 
@@ -283,7 +281,6 @@ main {
     color: #4CAF50; 
     border-bottom: 3px solid #4CAF50; 
     border-top: 1px solid #333;
-    /* Removendo bordas de thead para evitar problemas com arredondamento na tabela */
 }
 
 /* Estilo Zebra para linhas pares */
