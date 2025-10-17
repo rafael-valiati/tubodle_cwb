@@ -589,9 +589,9 @@ function mostrarFimDeJogo(venceu) {
 }
 
 function configurarEstatisticas() {
-    const btn = document.getElementById("estatisticas-button");
+    const btn = document.getElementById("btn-estatisticas");
     const modal = document.getElementById("modal-estatisticas");
-    const conteudo = document.getElementById("conteudo-estatisticas");
+    const conteudo = document.getElementById("modal-content-estatisticas");
     const fechar = document.getElementById("close-estatisticas");
 
     if (!btn || !modal || !conteudo || !fechar) {
