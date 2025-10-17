@@ -293,7 +293,7 @@ function inicializarMapaPrevia() {
         maxZoom: 19
     }).addTo(mapa);
     
-    L.circleMarker([lat, lon], { radius: 8, color: '#555', fillColor: '#555', fillOpacity: 1 }).addTo(mapa);
+    L.circleMarker([lat, lon], { radius: 15, color: '#555', fillColor: '#555', fillOpacity: 1 }).addTo(mapa);
     mapa.invalidateSize(); 
     configurarInput();
 }
