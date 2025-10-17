@@ -8,6 +8,26 @@ let JOGADAS_FEITAS = [];    // Armazena o histórico de palpites do jogador.
 const MAX_TENTATIVAS = 6;   // Define o limite de palpites.
 
 // =======================================================
+// DEV MODE E JOGADAS DIÁRIAS
+// =======================================================
+
+const HOJE = new Date();
+const DATA_ATUAL = `${HOJE.getFullYear()}-${HOJE.getMonth() + 1}-${HOJE.getDate()}`;
+const DEV_MODE = localStorage.getItem("tubodleDevMode") === "true";
+
+// Recupera histórico diário
+let historicoDiario = JSON.parse(localStorage.getItem("historicoDiario") || "{}");
+
+// Verifica se o jogador já jogou hoje (apenas para quem NÃO está em DevMode)
+if (!DEV_MODE && historicoDiario.data === DATA_ATUAL && historicoDiario.jogouHoje) {
+    alert("Você já jogou hoje! Volte amanhã para tentar novamente.");
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('palpite-input').disabled = true;
+        document.getElementById('chutar-btn').disabled = true;
+    });
+}
+
+// =======================================================
 // FUNÇÕES DE INICIALIZAÇÃO
 // =======================================================
 
@@ -220,6 +240,29 @@ function processarPalpite(nomePalpite) {
     } else if (JOGADAS_FEITAS.length >= MAX_TENTATIVAS) {
         mostrarFimDeJogo(false);
     }
+
+    if (!DEV_MODE) {
+        let estatisticas = JSON.parse(localStorage.getItem("estatisticas") || "{}");
+    
+        // Inicializa se for a primeira vez
+        if (!estatisticas.palpitesPorAcerto) estatisticas.palpitesPorAcerto = {1:0,2:0,3:0,4:0,5:0,6:0};
+        if (!estatisticas.erros) estatisticas.erros = 0;
+    
+        // Se acertou
+        if (acertou) {
+            const tentativas = JOGADAS_FEITAS.length;
+            if (tentativas >=1 && tentativas <= 6) estatisticas.palpitesPorAcerto[tentativas]++;
+            historicoDiario.jogouHoje = true;
+            historicoDiario.data = DATA_ATUAL;
+        } else if (JOGADAS_FEITAS.length >= MAX_TENTATIVAS) {
+            estatisticas.erros++;
+            historicoDiario.jogouHoje = true;
+            historicoDiario.data = DATA_ATUAL;
+        }
+    
+        localStorage.setItem("estatisticas", JSON.stringify(estatisticas));
+        localStorage.setItem("historicoDiario", JSON.stringify(historicoDiario));
+}
 }
 
 // =======================================================
@@ -545,8 +588,35 @@ function mostrarFimDeJogo(venceu) {
         : `😔 Fim de jogo! A estação era ${ESTACAO_SECRETA.Nome}.`;
 }
 
+function configurarEstatisticas() {
+    const btn = document.getElementById("btn-estatisticas");
+    const modal = document.getElementById("modal-estatisticas");
+    const conteudo = document.getElementById("conteudo-estatisticas");
+    const fechar = document.getElementById("close-estatisticas");
+
+    btn.addEventListener("click", () => {
+        const estatisticas = JSON.parse(localStorage.getItem("estatisticas") || "{}");
+        const linhas = estatisticas.palpitesPorAcerto ? 
+            Object.entries(estatisticas.palpitesPorAcerto)
+                .map(([tentativas, qtd]) => `<li>${tentativas} palpites: ${qtd}</li>`).join('') 
+            : "";
+        const erros = estatisticas.erros || 0;
+
+        conteudo.innerHTML = `
+            <h3>Estatísticas do Jogador</h3>
+            <ul>${linhas}</ul>
+            <p>Erros (6 tentativas sem acerto): ${erros}</p>
+        `;
+        modal.classList.remove("hidden");
+    });
+
+    fechar.addEventListener("click", () => modal.classList.add("hidden"));
+}
+
 // =======================================================
 // INICIALIZAÇÃO DO JOGO
 // =======================================================
 
 document.addEventListener('DOMContentLoaded', carregarDados);
+document.addEventListener('DOMContentLoaded', configurarEstatisticas);
+
