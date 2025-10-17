@@ -18,7 +18,7 @@ body {
 }
 
 /* -------------------------------------- */
-/* 2. MODO ESCURO (TEMA) */
+/* 2. MODO ESCURO (TEMA) E HEADER */
 /* -------------------------------------- */
 .dark-mode {
     background-color: #121212; /* Fundo escuro */
@@ -36,7 +36,22 @@ body {
     border-color: #333;
 }
 
-/* Adicionei o estilo para o botão 'i' */
+/* Header Único e Ajustado */
+header {
+    position: relative; /* Pai para o botão absoluto */
+    text-align: center;
+    padding: 15px 0;
+    background-color: #1f1f1f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+    font-family: 'Roboto', sans-serif !important; 
+    font-size: 2.5em; /* Aumenta um pouco o título */
+    font-weight: 700;
+}
+
+/* Botão de Informações (ícone i) */
 .info-button {
     background-color: #4CAF50; /* Verde */
     color: white;
@@ -58,39 +73,19 @@ body {
     background-color: #45a049;
 }
 
-/* Ajuste no header para permitir posicionamento do botão 'i' */
-header {
-    position: relative; /* Pai para o botão absoluto */
-    text-align: center;
-    padding: 15px 0;
-    background-color: #1f1f1f;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 /* -------------------------------------- */
-/* 3. ESTRUTURA E RESPONSIVIDADE */
+/* 3. ESTRUTURA E RESPONSIVIDADE (MOBILE FIRST) */
 /* -------------------------------------- */
-header {
-    text-align: center;
-    padding: 15px 0;
-    background-color: #1f1f1f;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-header h1 {
-    font-family: 'Roboto', sans-serif !important; 
-    font-size: 2.5em; /* Aumenta um pouco o título */
-    font-weight: 700;
-}
 
 main {
+    /* Layout empilhado verticalmente (padrão) */
     display: flex;
-    flex-direction: column;
-    align-items: center; /* CENTRALIZA ITENS NA HORIZONTAL */
+    flex-direction: column; 
+    align-items: center; 
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    flex-grow: 1; /* Permite que o main ocupe o espaço restante */
+    flex-grow: 1;
 }
 
 #game-status {
@@ -98,8 +93,9 @@ main {
     font-size: 32px; 
     font-weight: bold;
     text-align: center;
-    margin: 20px 0 10px 0; /* Diminui a margem inferior para a barra de progresso */
-    padding: 10px;
+    /* Ajustado para centralizar o texto sobre a barra de progresso, se necessário */
+    margin: 20px 0 10px 0; 
+    padding: 0 10px; /* Padding horizontal para evitar encostar nas bordas */
 }
 
 @media (min-width: 600px) {
@@ -108,20 +104,24 @@ main {
     }
 }
 
-/* NOVO: Estilos para a Barra de Progresso */
+/* Barra de Progresso (Ponto 1: Corrigido o "0 / 6" quebrando linha) */
 #progresso-container {
-    width: 90%;
+    width: 95%;
     max-width: 800px;
     display: flex;
     align-items: center;
-    gap: 15px; /* Espaço entre o texto e a barra */
+    gap: 20px; /* Aumentado para evitar quebra do '0 / 6' */
     margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 #progresso-texto {
+    /* Mantém o texto em uma linha e não permite que ele encolha */
     font-size: 1.2em;
     font-weight: bold;
     color: #e0e0e0;
+    white-space: nowrap; /* Garante que o texto fique em uma única linha */
+    flex-shrink: 0; 
 }
 
 #progresso-palpites {
@@ -131,7 +131,7 @@ main {
     appearance: none;
     border: 1px solid #444;
     border-radius: 10px;
-    overflow: hidden; /* Garante que o preenchimento fique dentro das bordas arredondadas */
+    overflow: hidden; 
 }
 
 /* Cor de fundo da barra (Chrome/Safari) */
@@ -148,31 +148,6 @@ main {
 /* Cor do preenchimento da barra (Firefox) */
 #progresso-palpites::-moz-progress-bar {
     background-color: #4CAF50;
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-    main {
-        flex-direction: row; /* Coloca o mapa e a interface lado a lado */
-        justify-content: center;
-        align-items: flex-start; /* Alinha o conteúdo no topo */
-        gap: 30px;
-    }
-
-    #mapa-previa {
-        width: 45%;
-        height: 80vh; /* Aumenta a altura para aproveitar o espaço vertical */
-        max-width: none;
-    }
-    
-    #progresso-container,
-    #interface-jogo {
-        width: 45%;
-        max-width: none;
-    }
-    
-    #interface-jogo {
-        padding: 15px; /* Ajusta o padding */
-    }
 }
 
 
@@ -195,6 +170,45 @@ main {
     padding: 20px;
     border-radius: 12px;
 }
+
+
+/* --- RESPONSIVIDADE PARA TELAS GRANDES/HORIZONTAIS (Ponto 2: Garantir que 6 palpites caibam) --- */
+@media (min-width: 900px) and (orientation: landscape) {
+    main {
+        flex-direction: row; /* Coloca o mapa e o contêiner de jogadas lado a lado */
+        justify-content: center;
+        align-items: flex-start; /* Alinha o conteúdo no topo */
+        gap: 25px; /* Reduzido levemente o gap para caber melhor */
+        max-width: 1300px; /* Limita a largura do container principal */
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+    
+    /* Container que agrupa progresso e interface (Tabela/Input) */
+    .game-interface-container { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 48%; /* Dá um pouco mais de espaço para o mapa e a interface */
+        max-width: 650px; 
+    }
+
+    #mapa-previa {
+        width: 48%;
+        /* 80vh para garantir que o jogo caiba na tela horizontal */
+        height: 80vh; 
+        max-width: 650px; 
+        margin-bottom: 0; 
+    }
+    
+    /* Garante que o progresso e a interface usem a largura do container */
+    #progresso-container,
+    #interface-jogo {
+        width: 100%;
+        max-width: none;
+    }
+}
+
 
 /* -------------------------------------- */
 /* 4. INPUT E BOTÃO */
@@ -254,11 +268,11 @@ main {
 
 #tentativas th, 
 #tentativas td {
-    padding: 14px 8px; 
+    padding: 10px 8px; /* Reduzido para caber melhor 6 palpites em telas menores */
     text-align: center; 
     border-bottom: 1px solid #333; 
     color: #e0e0e0; 
-    vertical-align: middle; /* Alinha o conteúdo verticalmente */
+    vertical-align: middle; 
 }
 
 /* Cabeçalho */
@@ -286,7 +300,7 @@ main {
     border-bottom-right-radius: 8px;
 }
 
-/* NOVO: Estilo para linha de DERROTA (Ponto 4) */
+/* Estilo para linha de DERROTA (Ponto 4) */
 .palpite-derrota td {
     background-color: #c0392b !important; /* Vermelho/Borgonha */
     color: white !important;
@@ -299,7 +313,7 @@ main {
 }
 
 /* -------------------------------------- */
-/* 6. CORES E ÍCONES DE FEEDBACK (NOVOS!) */
+/* 6. CORES E ÍCONES DE FEEDBACK */
 /* -------------------------------------- */
 
 /* --- CORES DE DISTÂNCIA (Distância) --- */
@@ -344,8 +358,8 @@ main {
 /* --- FEEDBACK DE DIREÇÃO (Direção) --- */
 #tentativas td.feedback-direcao {
     font-weight: bold;
-    font-size: 1.2em; /* Tamanho base */
-    line-height: 1.1; /* Melhora o alinhamento vertical */
+    font-size: 1.2em; 
+    line-height: 1.1; 
 }
 /* Estilo para o contêiner de ícone e texto */
 .direcao-container {
@@ -357,21 +371,24 @@ main {
 }
 /* Estilo específico para o ícone de seta */
 .direcao-icone {
-    font-size: 1.5em; /* Deixa o ícone maior que o texto */
+    font-size: 1.5em; 
     color: #e0e0e0;
 }
 /* Estilo para o texto da direção (Norte, Sul...) */
 .direcao-texto {
-    font-size: 0.7em; /* Texto menor */
+    font-size: 0.7em; 
     font-weight: normal;
     text-transform: uppercase;
     color: #bdbdbd;
 }
 /* Célula de direção na linha de vitória */
 #tentativas td.feedback-vitoria {
-    font-size: 2.5em; /* Emoji de fogos de artifício bem grande */
+    font-size: 2.5em; 
 }
 
+/* -------------------------------------- */
+/* 7. MODAL DE INFORMAÇÕES */
+/* -------------------------------------- */
 #modal-overlay {
     position: fixed;
     top: 0;
@@ -437,4 +454,3 @@ main {
 .hidden {
     display: none !important;
 }
-
