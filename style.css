@@ -298,16 +298,20 @@ main {
 }
 
 .estatisticas-button {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 10px;
     background-color: #4CAF50;
     color: white;
-    font-size: 18px;
-    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    width: 38px;       /* Igual ao botão "i" */
+    height: 38px;
+    font-size: 1.2em;  /* Tamanho do emoji */
     cursor: pointer;
     transition: background-color 0.2s;
-    margin-top: 15px; /* Espaço acima */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0;         /* Remove margin embaixo */
 }
 
 .estatisticas-button:hover {
