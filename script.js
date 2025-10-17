@@ -233,9 +233,9 @@ function processarPalpite(nomePalpite) {
 function gerarFeedbackDistancia(distancia) {
     let classe;
     if (distancia < 0.1) {
-        classe = 'distancia-azul'; // Acerto exato
+        classe = 'distancia-verde'; // Acerto exato
     } else if (distancia <= 0.5) {
-        classe = 'distancia-verde'; // < 0.5 km
+        classe = 'distancia-azul'; // < 0.5 km
     } else if (distancia <= 2.0) {
         classe = 'distancia-amarelo'; // 0.5 a 2 km
     } else if (distancia <= 5.0) {
