@@ -13,7 +13,11 @@
 <body class="dark-mode"> 
     
     <header>
-        <h1>Tubodle</h1>
+        <div class="titulo-container">
+             <h1>Tubodle</h1>
+        </div>
+       
+        <button id="info-btn" class="info-button">i</button>
     </header>
     
     <main>
@@ -48,6 +52,21 @@
         </section>
 
     </main>
+
+    <div id="modal-overlay" class="hidden">
+        <div id="modal-content">
+            <button id="close-modal-btn" class="close-button">&times;</button>
+            <h2>Como Jogar</h2>
+            <p>Seu objetivo é adivinhar a estação-tubo secreta de Curitiba em até 6 tentativas.</p>
+            <ul>
+                <li>A cada palpite, você receberá dicas sobre a <strong>distância</strong>, a <strong>direção</strong> e as <strong>linhas de ônibus</strong> em comum.</li>
+                <li><strong>Distância:</strong> As cores indicam o quão perto você está. Azul é acerto, verde é muito perto, e cinza é muito longe.</li>
+                <li><strong>Direção:</strong> A seta aponta na direção em que a estação secreta se encontra, a partir da sua estação de palpite.</li>
+                <li><strong>Linhas em comum:</strong> Mostra se o seu palpite compartilha alguma linha de ônibus com a estação secreta. Verde significa que todas as linhas são as mesmas; amarelo, que apenas algumas são; e cinza, que nenhuma é.</li>
+            </ul>
+            <p>Boa sorte!</p>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
