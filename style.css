@@ -325,27 +325,6 @@ main {
     margin-top: 15px; 
 }
 
-.estatisticas-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 38px;       /* Igual ao botão "i" */
-    height: 38px;
-    font-size: 1.2em;  /* Tamanho do emoji */
-    cursor: pointer;
-    transition: background-color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin: 0;         /* Remove margin embaixo */
-}
-
-.estatisticas-button:hover {
-    background-color: #45a049;
-}
-
 
 /* -------------------------------------- */
 /* 5. TABELA DE TENTATIVAS (MODO ESCURO) */
