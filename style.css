@@ -50,6 +50,47 @@ header h1 {
     font-weight: 700;
 }
 
+/* Oculta o botão da posição antiga no header (se tivesse) */
+header .info-button {
+    display: none; 
+}
+
+/* -------------------------------------- */
+/* 3. ESTRUTURA E RESPONSIVIDADE (MOBILE FIRST) */
+/* -------------------------------------- */
+main {
+    /* Layout empilhado verticalmente em todas as telas */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+/* NOVO CONTAINER: Alinha Status do Jogo e Botão Info */
+.status-e-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizado no mobile */
+    gap: 15px; /* Espaço entre status e botão */
+    width: 100%;
+    max-width: 800px;
+    margin: 0 0 10px 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#game-status {
+    color: #e0e0e0; 
+    font-size: 32px; 
+    font-weight: bold;
+    flex-grow: 1; /* Permite que o texto ocupe o máximo de espaço */
+    text-align: center; 
+}
+
+/* NOVO ESTILO: Botão info, agora na main, alinhado ao status */
 .info-button {
     background-color: #4CAF50;
     color: white;
@@ -61,45 +102,17 @@ header h1 {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    flex-shrink: 0; /* Impede o encolhimento */
 }
 
 .info-button:hover {
     background-color: #45a049;
 }
 
-/* -------------------------------------- */
-/* 3. ESTRUTURA E RESPONSIVIDADE (MOBILE FIRST) */
-/* -------------------------------------- */
-main {
-    /* Mobile: Layout empilhado verticalmente (Padrão) */
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    width: 100%;
-    padding: 20px 10px;
-    box-sizing: border-box;
-    flex-grow: 1;
-}
-
-#game-status {
-    color: #e0e0e0; 
-    font-size: 32px; 
-    font-weight: bold;
-    text-align: center; /* Centralizado no mobile */
-    margin: 20px 0 10px 0; 
-    padding: 0 10px;
-    width: 100%;
-    max-width: 800px;
-}
-
 /* MAPA */
 #mapa-previa {
     width: 100%; 
-    height: 50vh; 
+    height: 40vh; /* AJUSTE: Altura reduzida para dar mais espaço à tabela */
     max-width: 800px;
     border-radius: 12px;
     overflow: hidden; 
@@ -115,7 +128,7 @@ main {
     max-width: 800px;
 }
 
-/* Barra de Progresso e Interface de Palpites */
+/* Barra de Progresso e Interface de Palpites - mantidos */
 #progresso-container {
     width: 100%;
     display: flex;
@@ -164,33 +177,33 @@ main {
 }
 
 
-/* --- RESPONSIVIDADE PARA TELAS GRANDES/HORIZONTAIS (Desktop) --- */
+/* --- RESPONSIVIDADE PARA TELAS GRANDES/HORIZONTAIS (Desktop/Paisagem) --- */
 @media (min-width: 900px) and (orientation: landscape) {
     main {
-        /* CORREÇÃO: Força o empilhamento vertical (coluna única) em telas grandes */
         flex-direction: column; 
         justify-content: flex-start; 
         align-items: center; 
-        
-        /* Aumenta a largura máxima para usar o espaço horizontal */
-        max-width: 1000px; 
+        max-width: 1000px; /* Aumenta a largura da coluna principal */
         margin: 0 auto;
         padding-top: 30px;
     }
     
-    #game-status {
-        /* Ocupa a largura total da coluna centralizada */
-        width: 100%; 
+    .status-e-info-container {
+        /* Alinha status e info à esquerda da coluna central */
+        justify-content: flex-start;
         max-width: 1000px;
         margin-bottom: 30px;
-        text-align: left; 
-        padding: 0 10px; 
     }
 
-    /* Mapa (Agora na largura total da coluna central) */
+    #game-status {
+        /* Alinhamento esquerdo no desktop */
+        text-align: left; 
+    }
+
+    /* MAPA: Agora mais largo que alto, aproveitando o espaço horizontal */
     #mapa-previa {
         width: 100%; 
-        height: 70vh; /* Aumenta a altura para aproveitar o espaço vertical */
+        height: 35vh; /* AJUSTE: Altura reduzida para o modo paisagem */
         max-width: 1000px; 
         margin-bottom: 25px; 
     }
@@ -200,8 +213,6 @@ main {
         width: 100%; 
         max-width: 1000px; 
     }
-    
-    /* As regras de progresso e interface já ocupam 100% da coluna */
 }
 
 
