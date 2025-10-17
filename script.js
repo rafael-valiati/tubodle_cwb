@@ -594,6 +594,12 @@ function configurarEstatisticas() {
     const conteudo = document.getElementById("conteudo-estatisticas");
     const fechar = document.getElementById("close-estatisticas");
 
+    if (!btn || !modal || !conteudo || !fechar) {
+        console.error("Um ou mais elementos do modal de estatísticas não foram encontrados!");
+        return;
+    }
+
+    // Abre o modal
     btn.addEventListener("click", () => {
         const estatisticas = JSON.parse(localStorage.getItem("estatisticas") || "{}");
         const linhas = estatisticas.palpitesPorAcerto ? 
@@ -610,7 +616,17 @@ function configurarEstatisticas() {
         modal.classList.remove("hidden");
     });
 
-    fechar.addEventListener("click", () => modal.classList.add("hidden"));
+    // Fecha o modal ao clicar no botão "X"
+    fechar.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    // Fecha o modal ao clicar fora do conteúdo
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) { // só fecha se clicar no overlay, não dentro do conteúdo
+            modal.classList.add("hidden");
+        }
+    });
 }
 
 // =======================================================
